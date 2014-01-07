@@ -1,0 +1,6 @@
+MIDlet-Name: Team1305Robot
+MIDlet-Version: 1.0.0
+MIDlet-Vendor: FIRST
+MIDlet-1: Robot1305, , org.team1305.robot2014.Robot1305
+MicroEdition-Profile: IMP-1.0
+MicroEdition-Configuration: CLDC-1.1
