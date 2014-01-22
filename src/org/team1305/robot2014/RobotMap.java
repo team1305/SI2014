@@ -9,7 +9,6 @@ package org.team1305.robot2014;
 public class RobotMap {
     // For example to map the left and right motors, you could define the
     // following variables to use with your drivetrain subsystem.
-    
     // public static final int leftMotor = 1;
     // public static final int rightMotor = 2;
     
@@ -19,10 +18,6 @@ public class RobotMap {
     // public static final int rangefinderModule = 1;
     
     //PWM channels
-    public static final int PORT_LEFTMOTOR = 1;
-    public static final int PORT_RIGHTMOTOR = 2;
-    
-    // Joystick Button Mapping
-    public static final int JOY_ARCADE_DRIVE_MOVE_AXIS = 2;
-    public static final int JOY_ARCADE_DRIVE_TURN_AXIS = 3;
+    public static final int PORT_LEFTMOTOR = 2;
+    public static final int PORT_RIGHTMOTOR = 1;
 }
