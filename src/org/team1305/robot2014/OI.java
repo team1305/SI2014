@@ -1,15 +1,32 @@
 
 package org.team1305.robot2014;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.team1305.robot2014.commands.chassis.ToggleSmoothing;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-public class OI {
-    //// CREATING BUTTONS
+public class OI {    
+    public static final int AXIS_XL = 1;
+    public static final int AXIS_YL = 2;
+    public static final int AXIS_XR = 3;
+    public static final int AXIS_YR = 4;
+    public static final int AXIS_TRIG = 5;
+    
+    private final Joystick driveStick = new Joystick(1);
+    Button driveStart = new JoystickButton(driveStick, 8);
+    
+    public OI(){
+        driveStart.whenPressed(new ToggleSmoothing());
+    }
+    
+
+    //// CREATING BUTTON
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
     // number it is.
@@ -25,20 +42,22 @@ public class OI {
     // by subclassing Button you can create custom triggers and bind those to
     // commands the same as any other Button.
     
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
     
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
     
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-    
-    // Start the command when the button is released  and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
+    public double getDriveXL(){
+        return driveStick.getRawAxis(AXIS_XL);
+    }
+    public double getDriveYL(){
+        return driveStick.getRawAxis(AXIS_YL);
+    }
+    public double getDriveXR(){
+        return driveStick.getRawAxis(AXIS_XR);
+    }
+    public double getDriveYR(){
+        return driveStick.getRawAxis(AXIS_YR);
+    }
+    public double getDriveTRIG(){
+        return driveStick.getRawAxis(AXIS_TRIG);
+    }
 }
 

@@ -18,6 +18,8 @@ public class RobotMap {
     // public static final int rangefinderModule = 1;
     
     //PWM channels
-    public static final int PORT_LEFTMOTOR = 2;
-    public static final int PORT_RIGHTMOTOR = 1;
+    public static final int PWM_DRIVE_LEFT_FRONT = 1;
+    public static final int PWM_DRIVE_LEFT_BACK = 2;
+    public static final int PWM_DRIVE_RIGHT_FRONT = 3;
+    public static final int PWM_DRIVE_RIGHT_BACK = 4;
 }
