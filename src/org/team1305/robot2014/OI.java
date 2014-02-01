@@ -8,8 +8,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.team1305.robot2014.commands.chassis.ToggleSmoothing;
 
 /**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
+ * Controls all operator input into the robot.
  */
 public class OI {    
     public static final int AXIS_XL = 1;

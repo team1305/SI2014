@@ -14,7 +14,10 @@ import org.team1305.robot2014.RobotMap;
 import org.team1305.robot2014.commands.chassis.MecanumDrive;
 
 /**
- *
+ *Chassis is the culmination of all the driving stuffs in the robot.  
+ * PID loops all get set/enabled here.
+ * Mecanum Drive is all put together here as well.
+ * Home of StopPlz, toggleSmoothing, etc.
  * @author Root 1
  */
 public class Chassis extends Subsystem {
@@ -47,6 +50,9 @@ public class Chassis extends Subsystem {
     private final PIDController steerPID = new PIDController(STEER_P, STEER_I, STEER_D, steerLink, steerLink);
     private final PIDController rotatePID = new PIDController(ROTATE_P, ROTATE_I, ROTATE_D, rotateLink, rotateLink);
     
+    /**
+     * This is da chassis constructor thingy yo.
+     */
     public Chassis() {
         drivePID.enable();
         steerPID.enable();
@@ -68,6 +74,15 @@ public class Chassis extends Subsystem {
         setDefaultCommand(new MecanumDrive());
       
     }
+    
+    /**
+     * This is the basis of all movement on the robot.
+     * It includes the 'if' statement to switch between smoothing and non-smoothing.
+     * Setpoints get set from their points.
+     * @param magnitude Y movement.
+     * @param direction X movement.
+     * @param rotation Rotation movement.
+     */
     public void mecanumDrive_Polar(double magnitude, double direction, double rotation){
         if (isSmoothing){
             drivePID.setSetpoint(magnitude);
@@ -75,12 +90,17 @@ public class Chassis extends Subsystem {
             rotatePID.setSetpoint(rotation);
             robotDrive.mecanumDrive_Polar(drivePID.get(), steerPID.get(), rotatePID.get());
             
-        }
+        } 
         else{
             robotDrive.mecanumDrive_Polar(magnitude, direction, rotation);
         }
         
     }
+   
+    /**
+     * Enables and disables PID control (ie smoothing)
+     * Note that this is completely not needed but Paul didn't know otherwise.
+     */
     public void toggleSmoothing(){
         isSmoothing = !isSmoothing;
         if (isSmoothing){
@@ -94,6 +114,10 @@ public class Chassis extends Subsystem {
             rotatePID.disable();
         }
     }
+    
+    /**
+     * Plz no y u do dis pls stahp.
+     */
     public void stopPlz(){
         robotDrive.arcadeDrive(0,0);
     }
