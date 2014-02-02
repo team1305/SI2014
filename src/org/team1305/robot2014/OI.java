@@ -11,38 +11,42 @@ import org.team1305.robot2014.commands.chassis.ToggleSmoothing;
  * Controls all operator input into the robot.
  */
 public class OI {    
+    //Axis defninitions
+    //***THE CONTROLLER MUST BE IN XINPUT MODE***
+    //***MAKE SURE THE SWITCH ON THE BACK OF THE CONTROLLER IS SET TO 'X'***
+    //TODO: check these axis numbers
     public static final int AXIS_XL = 1;
     public static final int AXIS_YL = 2;
     public static final int AXIS_XR = 3;
     public static final int AXIS_YR = 4;
     public static final int AXIS_TRIG = 5;
     
-    private final Joystick driveStick = new Joystick(1);
-    Button driveStart = new JoystickButton(driveStick, 8);
+    public static final int BTN_A = 1;
+    public static final int BTN_B = 2;
+    public static final int BTN_X = 3;
+    public static final int BTN_Y = 4;
+    public static final int BTN_START = 8;
+    public static final int BTN_BACK =7;
+    public static final int BTN_LB = 5; //right and left bumpers
+    public static final int BTN_RB = 6;
+    public static final int BTN_LCLICK = 9;
+    public static final int BTN_RCLICK = 10;
     
+    private final Joystick driveStick = new Joystick(1);
+    Button driveA = new JoystickButton(driveStick, BTN_A);
+    Button driveB = new JoystickButton(driveStick, BTN_B);
+    Button driveX = new JoystickButton(driveStick, BTN_X);
+    Button driveY = new JoystickButton(driveStick, BTN_Y);
+    Button driveStart = new JoystickButton(driveStick, BTN_START);
+    Button driveBack = new JoystickButton(driveStick, BTN_BACK);
+    Button driveLB = new JoystickButton(driveStick, BTN_LB);
+    Button driveRB = new JoystickButton(driveStick, BTN_RB);
+    Button driveLClick = new JoystickButton(driveStick, BTN_LCLICK);
+    Button driveRClick = new JoystickButton(driveStick, BTN_RCLICK);
+        
     public OI(){
         driveStart.whenPressed(new ToggleSmoothing());
     }
-    
-
-    //// CREATING BUTTON
-    // One type of button is a joystick button which is any button on a joystick.
-    // You create one by telling it which joystick it's on and which button
-    // number it is.
-    // Joystick stick = new Joystick(port);
-    // Button button = new JoystickButton(stick, buttonNumber);
-    
-    // Another type of button you can create is a DigitalIOButton, which is
-    // a button or switch hooked up to the cypress module. These are useful if
-    // you want to build a customized operator interface.
-    // Button button = new DigitalIOButton(1);
-    
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
-    
-    
-    
     public double getDriveXL(){
         return driveStick.getRawAxis(AXIS_XL);
     }
