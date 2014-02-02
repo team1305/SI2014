@@ -30,6 +30,12 @@ public class Catapult extends Subsystem {
     
     private final DigitalInput dBottomLimit = new DigitalInput (RobotMap.DIO_LIMIT_CAT_BOTTOM);
     
+    private boolean fireLock;
+
+    public Catapult() {
+        this.fireLock = true;
+    }
+    
     
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -37,31 +43,34 @@ public class Catapult extends Subsystem {
     }
     
     public void fire(){
-        
+        if (fireLock = true){
+            
+            
+        }
         
         
     }
     
     public void load(){
         if (dBottomLimit.get() == false){
-        sGearSolenoid.set(true);
+            sGearSolenoid.set(true);
         
-        mLeftPullback.set(100);
-        mRightPullback.set(-100);
+            mLeftPullback.set(100);
+            mRightPullback.set(-100);
+        }else{
+            mLeftPullback.set(0);
+            mRightPullback.set(0);
         }
-        else
-        mLeftPullback.set(0);
-        mRightPullback.set(0);
     }
     
     public void lock(){
-        
+        fireLock = true;
         
         
     }
     
     public void unlock(){
-        
+        fireLock = false;
         
         
     }
