@@ -1,13 +1,19 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.team1305.robot2014.commands.catapult;
 
-package org.team1305.robot2014.commands;
+import org.team1305.robot2014.commands.CommandBase;
 
 /**
  *
- * @author bradmiller
+ * @author Root 1
  */
-public class ExampleCommand extends CommandBase {
-
-    public ExampleCommand() {
+public class CatapultLoad extends CommandBase {
+    
+    public CatapultLoad() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
