@@ -8,7 +8,7 @@ package org.team1305.robot2014.commands.catapult;
 import org.team1305.robot2014.commands.CommandBase;
 
 /**
- *
+ *CURRENTLY UNUSED
  * @author Root 1
  */
 public class CatapultLock extends CommandBase {

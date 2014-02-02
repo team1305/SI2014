@@ -42,39 +42,77 @@ public class Catapult extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void fire(){
-        if (fireLock = true){
+    /**
+     * Gives the status of fireLock.
+     * @return True if lock is active, false if system is able to be triggered.
+     */
+   public boolean getLockState(){
+       return fireLock;
+   }
+    
+    /**
+     * Released the mechanism, firing the catapult.  Will not trigger without fireLock being disabled.
+     * @param engaged Latch on.
+     */
+    public void pullFiringPin(boolean engaged){
+        if (fireLock == false && engaged == true){
+            //Stops all actions, fireLock must be false.
             
+            sLatchSolenoid.set(true);
+        }else{
+            sLatchSolenoid.set(false);
             
         }
-        
+    }
+    
+    /**
+     * Moves gears to allow loading of catapult.
+     * @param engaged Gears in position to load.
+     */
+    public void setTransmissionEngaged(boolean engaged){
+        sGearSolenoid.set(engaged);
         
     }
     
-    public void load(){
+    /**
+     * Loads catapult until the bottomLimit is reached.
+     * @return Returns true if motor is still running, false if limit is hit, to LockNLoad.
+     */
+    public boolean winch(){
         if (dBottomLimit.get() == false){
-            sGearSolenoid.set(true);
-        
-            mLeftPullback.set(100);
-            mRightPullback.set(-100);
+            mLeftPullback.set(1);
+            mRightPullback.set(1);
+            return true;
         }else{
             mLeftPullback.set(0);
             mRightPullback.set(0);
+            return false;
         }
+        
+        
     }
     
+    /**
+     * Prevents catapult from firing.
+     */
     public void lock(){
         fireLock = true;
         
         
     }
     
+    /**
+     * Allows catapult to fire.
+     */
     public void unlock(){
         fireLock = false;
         
         
     }
     
+    /**
+     * Stops all motion in the catapult loading process.
+     */
     public void stop(){
         mLeftPullback.set(0);
         mRightPullback.set(0);

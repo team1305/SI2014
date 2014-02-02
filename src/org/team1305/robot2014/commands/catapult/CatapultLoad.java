@@ -7,16 +7,20 @@ package org.team1305.robot2014.commands.catapult;
 
 import org.team1305.robot2014.commands.CommandBase;
 
+
 /**
  *
  * @author Root 1
  */
 public class CatapultLoad extends CommandBase {
     
+    
+    
     public CatapultLoad() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(catapult);
+        
     }
 
     // Called just before this Command runs the first time
@@ -25,7 +29,7 @@ public class CatapultLoad extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        catapult.load();
+        catapult.winch();
     }
 
     // Make this return true when this Command no longer needs to run execute()
