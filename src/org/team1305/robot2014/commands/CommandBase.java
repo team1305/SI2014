@@ -3,7 +3,10 @@ package org.team1305.robot2014.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.OI;
+import org.team1305.robot2014.subsystems.Catapult;
 import org.team1305.robot2014.subsystems.Chassis;
+import org.team1305.robot2014.subsystems.Claw;
+import org.team1305.robot2014.subsystems.Underglow;
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -16,6 +19,9 @@ public abstract class CommandBase extends Command {
     public static OI oi;
     // Create a single static instance of all of your subsystems
     public static Chassis chassis = new Chassis();
+    public static Catapult catapult = new Catapult();
+    public static Claw claw = new Claw();
+    public static Underglow underglow = new Underglow();
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from

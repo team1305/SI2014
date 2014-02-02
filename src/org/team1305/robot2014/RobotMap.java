@@ -21,13 +21,18 @@ public class RobotMap {
     //Solenoids
     //*Catapult
     public static final int SOL_LATCH = 1;  //Latches Catapult down for safety.
-    public static final int SOL_GEAR= 2; //Shifts Catapult gear transmission.
+    public static final int SOL_GEAR = 2; //Shifts Catapult gear transmission.
     
     //Encoders
     //*Chassis
-    public static final int DIO_ENC_RIGHTWHEEL = 1; //Encoder on the right drivewheel.
-    public static final int DIO_ENC_LEFTWHEEL= 2; //Encoder on the left drivewheel.
+    public static final int DIO_ENC_RIGHTWHEEL_P1 = 1; //Encoder on the right drivewheel.
+    public static final int DIO_ENC_RIGHTWHEEL_P2 = 2; //Encoder on the right drivewheel.
+    public static final int DIO_ENC_LEFTWHEEL_P1 = 3; //Encoder on the left drivewheel.
+    public static final int DIO_ENC_LEFTWHEEL_P2 = 4; //Encoder on the left drivewheel.
     
+    //Limit Switch
+    //*Catapult
+    public static final int DIO_LIMIT_CAT_BOTTOM = 1;
     
     //Analog Channels
     //*Catapult
