@@ -6,6 +6,7 @@ import org.team1305.robot2014.OI;
 import org.team1305.robot2014.subsystems.Catapult;
 import org.team1305.robot2014.subsystems.Chassis;
 import org.team1305.robot2014.subsystems.Claw;
+import org.team1305.robot2014.subsystems.Pneumatic;
 import org.team1305.robot2014.subsystems.Underglow;
 
 /**
@@ -21,6 +22,7 @@ public abstract class CommandBase extends Command {
     public static Chassis chassis = new Chassis();
     public static Catapult catapult = new Catapult();
     public static Claw claw = new Claw();
+    public static Pneumatic pneumatic = new Pneumatic();
     public static Underglow underglow = new Underglow();
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
