@@ -12,14 +12,14 @@ import org.team1305.robot2014.commands.CommandBase;
  *
  * @author Root 1
  */
-public class CatapultLockNLoadGroup extends CommandBase {
+public class CatapultLockNLoad extends CommandBase {
     
     private int currentState = 0;
     private Timer delayTimer = new Timer();
     private static final int DELAY_BEFORE_TIMER = 500;
     private boolean isDone = false;
     
-    public CatapultLockNLoadGroup() {
+    public CatapultLockNLoad() {
         // Use requires() here to declare subsystem dependencies
         requires(catapult);
         setInterruptible(false);

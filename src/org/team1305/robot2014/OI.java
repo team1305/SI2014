@@ -5,6 +5,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.team1305.robot2014.commands.catapult.CatapultFire;
+import org.team1305.robot2014.commands.catapult.CatapultLock;
+import org.team1305.robot2014.commands.catapult.CatapultLockNLoad;
+import org.team1305.robot2014.commands.catapult.CatapultUnlock;
 import org.team1305.robot2014.commands.chassis.ToggleSmoothing;
 
 /**
@@ -46,6 +50,10 @@ public class OI {
         
     public OI(){
         driveStart.whenPressed(new ToggleSmoothing());
+        driveX.whenPressed(new CatapultLockNLoad());
+        driveY.whenPressed(new CatapultUnlock());
+        driveB.whenPressed(new CatapultLock());
+        driveA.whenPressed(new CatapultFire());
     }
     public double getDriveXL(){
         return driveStick.getRawAxis(AXIS_XL);

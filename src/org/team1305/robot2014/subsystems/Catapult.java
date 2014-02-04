@@ -59,6 +59,7 @@ public class Catapult extends Subsystem {
             //Stops all actions, fireLock must be false.
             
             sLatchSolenoid.set(true);
+            fireLock = true;
         }else{
             sLatchSolenoid.set(false);
             
