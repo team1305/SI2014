@@ -17,6 +17,9 @@ public class RobotMap {
     //*Catapult
     public static final int PWM_PULLBACK_RIGHT = 5; //Right pullback motor.
     public static final int PWM_PULLBACK_LEFT = 6; //Left pullback motor.
+    //*Claw
+    public static final int PWM_CLAW_LEFT = 7;
+    public static final int PWM_CLAW_RIGHT = 8;
     
     //Solenoids
     //*Catapult
@@ -37,7 +40,9 @@ public class RobotMap {
     //Analog Channels
     //*Catapult
     public static final int AN_PULLBACK_POT = 1; //Potentiometer located on the pullback mechanism.
-    
+    //*Claw
+    public static final int AN_CLAW_POT_LEFT = 2;
+    public static final int AN_CLAW_POT_RIGHT = 4;
     
     
 }
