@@ -12,6 +12,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team1305.robot2014.RobotMap;
 
 /**
+ * The two claws that are used to grasp the ball.
+ * The claws have three defined states: parked, open, and closed. 
+ * 
+ * All matches should start with the claws in the "Park" position.
  * 
  * @author Paul Belanger
  * @since 2014-02-03
