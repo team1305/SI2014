@@ -5,6 +5,7 @@
  */
 package org.team1305.robot2014.commands.underglow;
 
+import edu.wpi.first.wpilibj.Timer;
 import org.team1305.robot2014.commands.CommandBase;
 
 /**
@@ -12,7 +13,8 @@ import org.team1305.robot2014.commands.CommandBase;
  * @author Root 1
  */
 public class SlowBlink extends CommandBase {
-    
+    private final Timer timer=new Timer();
+    private final double BLINK_PERIOD=1.00;
     public SlowBlink() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -20,10 +22,16 @@ public class SlowBlink extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        timer.start();
+        underglow.on();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        if(timer.get()>= BLINK_PERIOD){
+            timer.reset();
+            underglow.toggle();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
