@@ -16,10 +16,12 @@ public class Solid extends CommandBase {
     public Solid() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(underglow);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        underglow.on();
     }
 
     // Called repeatedly when this Command is scheduled to run

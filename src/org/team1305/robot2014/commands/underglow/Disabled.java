@@ -16,10 +16,12 @@ public class Disabled extends CommandBase {
     public Disabled() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(underglow);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        underglow.off();
     }
 
     // Called repeatedly when this Command is scheduled to run
