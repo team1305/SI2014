@@ -54,7 +54,7 @@ public class RobotMap {
     public static final int AN_PULLBACK_POT   = 1; //Potentiometer located on the pullback mechanism.
     //*Claw
     public static final int AN_CLAW_POT_LEFT  = 2;
-    public static final int AN_CLAW_POT_RIGHT = 4;
+    public static final int AN_CLAW_POT_RIGHT = 3;
     
     
 }

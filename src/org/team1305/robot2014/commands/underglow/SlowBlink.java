@@ -13,12 +13,10 @@ import org.team1305.robot2014.commands.CommandBase;
  * @author Root 1
  */
 public class SlowBlink extends CommandBase {
-    
-    private Timer delayTimer = new Timer();
-    private static final int DELAY_BEFORE_TIMER = 500;
-    private int currentState = 0;
-    private boolean isDone = false;
-    
+
+    private final Timer timer=new Timer();
+    private final double BLINK_PERIOD=1.00;
+
     public SlowBlink() {
         // Use requires() here to declare subsystem dependencies
         requires(underglow);
@@ -26,32 +24,19 @@ public class SlowBlink extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        timer.start();
+        underglow.on();
     }
 
     // Called repeatedly when this Command is scheduled to run
-        protected void execute() {
-        switch (currentState){
-            case 0:
-                delayTimer.start();
-                underglow.on();
-                currentState++;
-                break;
-            case 1:
-                if (delayTimer.get()>=DELAY_BEFORE_TIMER)
-                {
-                    currentState++;
-                }
-                break;
-            case 2:
-                currentState++;
-                underglow.off();
-                
-                break;
-            case 3:
-                isDone = true;
-                break;
+
+    protected void execute() {
+        if(timer.get()>= BLINK_PERIOD){
+            timer.reset();
+            underglow.toggle();
         }
-        }
+    }
+
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

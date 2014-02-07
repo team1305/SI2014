@@ -99,5 +99,13 @@ public class Claw extends Subsystem {
     public int getState(){
         return state;
     }
+    /*
+    This Command Stops the claws regardless of position
+    should robot become disconnected
+    */
+    public void clawstop() {
+        mLeftClaw.set(0);
+        mRightClaw.set(0);
+    }
     
 }
