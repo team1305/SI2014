@@ -16,8 +16,9 @@ public class CatapultLockNLoad extends CommandBase {
     
     private int currentState = 0;
     private Timer delayTimer = new Timer();
-    private static final int DELAY_BEFORE_TIMER = 500;
+    private static final double DELAY_BEFORE_TIMER = 0.5;
     private boolean isDone = false;
+    public boolean shooterLoaded = false;
     
     public CatapultLockNLoad() {
         // Use requires() here to declare subsystem dependencies

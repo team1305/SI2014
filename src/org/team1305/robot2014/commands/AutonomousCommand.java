@@ -3,19 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team1305.robot2014.commands.chassis;
-
-import org.team1305.robot2014.commands.CommandBase;
+package org.team1305.robot2014.commands;
 
 /**
  *
  * @author Root 1
  */
-public class MecanumDrive extends CommandBase {
+public class AutonomousCommand extends CommandBase {
     
-    public MecanumDrive() {
+    public AutonomousCommand() {
         // Use requires() here to declare subsystem dependencies
-        requires(chassis);
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
@@ -24,12 +22,6 @@ public class MecanumDrive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        oi.getDriveXL();
-        oi.getDriveXR();
-        oi.getDriveYL();
-        oi.getDriveYR();
-        oi.getDriveTRIG();
-        chassis.mecanumDrive_Cartesian(oi.getDriveYL(), oi.getDriveXL(), oi.getDriveTRIG());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -44,6 +36,5 @@ public class MecanumDrive extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        chassis.stopPlz();
     }
 }

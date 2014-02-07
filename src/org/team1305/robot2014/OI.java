@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.commands.catapult.CatapultFire;
 import org.team1305.robot2014.commands.catapult.CatapultLock;
 import org.team1305.robot2014.commands.catapult.CatapultLockNLoad;
@@ -21,9 +22,9 @@ public class OI {
     //TODO: check these axis numbers
     public static final int AXIS_XL = 1;
     public static final int AXIS_YL = 2;
-    public static final int AXIS_XR = 3;
-    public static final int AXIS_YR = 4;
-    public static final int AXIS_TRIG = 5;
+    public static final int AXIS_XR = 4;
+    public static final int AXIS_YR = 5;
+    public static final int AXIS_TRIG = 3;
     
     public static final int BTN_A = 1;
     public static final int BTN_B = 2;
@@ -55,20 +56,27 @@ public class OI {
         driveB.whenPressed(new CatapultLock());
         driveA.whenPressed(new CatapultFire());
     }
-    public double getDriveXL(){
+    public double getDriveXL(){     
+        SmartDashboard.putNumber("XL", driveStick.getRawAxis(AXIS_XL));
         return driveStick.getRawAxis(AXIS_XL);
     }
     public double getDriveYL(){
+        SmartDashboard.putNumber("YL", driveStick.getRawAxis(AXIS_YL));
         return driveStick.getRawAxis(AXIS_YL);
     }
     public double getDriveXR(){
+        SmartDashboard.putNumber("XR", driveStick.getRawAxis(AXIS_XR));
         return driveStick.getRawAxis(AXIS_XR);
     }
     public double getDriveYR(){
+        SmartDashboard.putNumber("YR", driveStick.getRawAxis(AXIS_YR));
         return driveStick.getRawAxis(AXIS_YR);
     }
     public double getDriveTRIG(){
+       SmartDashboard.putNumber("TRIG", driveStick.getRawAxis(AXIS_TRIG));
+
         return driveStick.getRawAxis(AXIS_TRIG);
-    }
+    }       
+
 }
 
