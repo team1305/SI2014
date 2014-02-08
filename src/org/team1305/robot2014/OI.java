@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.team1305.robot2014.commands.camera.CameraActive;
 import org.team1305.robot2014.commands.catapult.CatapultFire;
 import org.team1305.robot2014.commands.catapult.CatapultLock;
 import org.team1305.robot2014.commands.catapult.CatapultLockNLoad;
@@ -43,7 +44,7 @@ public class OI {
     Button driveX = new JoystickButton(driveStick, BTN_X);
     Button driveY = new JoystickButton(driveStick, BTN_Y);
     Button driveStart = new JoystickButton(driveStick, BTN_START);
-    Button driveBack = new JoystickButton(driveStick, BTN_BACK);
+    Button driveAnalyze = new JoystickButton(driveStick, BTN_BACK);
     Button driveLB = new JoystickButton(driveStick, BTN_LB);
     Button driveRB = new JoystickButton(driveStick, BTN_RB);
     Button driveLClick = new JoystickButton(driveStick, BTN_LCLICK);
@@ -51,6 +52,7 @@ public class OI {
         
     public OI(){
         driveStart.whenPressed(new ToggleSmoothing());
+        driveAnalyze.whenPressed(new CameraActive());
         driveX.whenPressed(new CatapultLockNLoad());
         driveY.whenPressed(new CatapultUnlock());
         driveB.whenPressed(new CatapultLock());

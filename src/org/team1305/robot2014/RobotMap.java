@@ -49,6 +49,8 @@ public class RobotMap {
     //*Pneumatic
     public static final int DIO_PRESSURE_SENSOR  = 6;
     
+    public static final int SOL_CAMERA_LIGHT_RING = 4;
+
     //Analog Channels
     //*Catapult
     public static final int AN_PULLBACK_POT   = 1; //Potentiometer located on the pullback mechanism.
