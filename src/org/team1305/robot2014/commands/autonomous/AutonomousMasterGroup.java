@@ -3,17 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team1305.robot2014.commands;
+package org.team1305.robot2014.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.team1305.robot2014.commands.camera.CameraActive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.team1305.robot2014.commands.catapult.CatapultFire;
 
 /**
  *
  * @author Root 1
  */
 public class AutonomousMasterGroup extends CommandGroup {
+    double hotCount = SmartDashboard.getNumber("Hot Count");
     
     public AutonomousMasterGroup() {
+        addSequential(new CameraActive());
+        if (hotCount >= 2){
+            addSequential(new CatapultFire());
+            addSequential(new AutonomousMobility());
+        }
+        else{
+            addSequential(new AutonomousMobility());
+            addSequential(new CatapultFire());
+        }
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

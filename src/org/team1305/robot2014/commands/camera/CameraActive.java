@@ -5,13 +5,14 @@
 package org.team1305.robot2014.commands.camera;
 
 import org.team1305.robot2014.commands.CommandBase;
-
+ 
 /**
  *
  * @author Kim
  */
 public class CameraActive extends CommandBase {
-    
+    int cameraTimeout = 2;
+   
     public CameraActive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -20,7 +21,7 @@ public class CameraActive extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        this.setTimeout(15);
+        this.setTimeout(cameraTimeout);
     }
 
     // Called repeatedly when this Command is scheduled to run

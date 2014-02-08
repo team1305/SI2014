@@ -8,6 +8,7 @@ package org.team1305.robot2014.subsystems;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.ManualPIDLink;
@@ -51,6 +52,10 @@ public class Chassis extends Subsystem {
     private final PIDController steerPID = new PIDController(STEER_P, STEER_I, STEER_D, steerLink, steerLink);
     private final PIDController rotatePID = new PIDController(ROTATE_P, ROTATE_I, ROTATE_D, rotateLink, rotateLink);
     
+    private Timer delayTimer = new Timer();
+    private static final double DELAY_BEFORE_TIMER = 0.5;
+    private boolean isDone = false;
+    private int currentState = 0;
     /**
      * This is da chassis constructor thingy yo.
      */
@@ -131,6 +136,33 @@ public class Chassis extends Subsystem {
     /**
      * Plz no y u do dis pls stahp.
      */
+    
+    public void mobilityMovement(){
+        switch (currentState){
+            case 0:
+                delayTimer.start();
+                robotDrive.arcadeDrive(1, 0);
+                currentState++;
+                break;
+            case 1:
+                if (delayTimer.get()>=DELAY_BEFORE_TIMER)
+                {
+                    robotDrive.arcadeDrive(-1, 0);
+                    currentState++;
+                }
+                break;
+            case 2:
+                robotDrive.arcadeDrive(0,0);
+                currentState++;
+                
+                break;
+            case 3:
+                isDone = true;
+                break;
+        }
+        
+    }
+    
     public void stopPlz(){
         robotDrive.arcadeDrive(0,0);
     }

@@ -3,17 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team1305.robot2014.commands;
+package org.team1305.robot2014.commands.autonomous;
+
+import org.team1305.robot2014.commands.CommandBase;
 
 /**
  *
  * @author Root 1
  */
-public class AutonomousCommand extends CommandBase {
+public class AutonomousMobility extends CommandBase {
     
-    public AutonomousCommand() {
+    public AutonomousMobility() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(chassis);
     }
 
     // Called just before this Command runs the first time
