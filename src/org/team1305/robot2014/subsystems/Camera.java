@@ -25,9 +25,9 @@ import org.team1305.robot2014.commands.camera.CameraInactive;
 public class Camera extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    final String SMART_DASH_HOT_TARGET_RESULT = "SmartDashHotTargetResult";
-    int hotCount = 0;
-    int totalCount = 0;
+    final String SMARTDASH_HOT_TARGET_RESULT = "SmartDashHotTargetResult";
+    int hotTargetFinds = 0;
+    int hotTargetChecks = 0;
     final int CAMERA_BRIGHTNESS = 30;
     
     //Camera constants used for distance calculation
@@ -91,8 +91,9 @@ public class Camera extends Subsystem {
     public Camera()
     {
        System.out.println("---newing up Camera ---");
-       SmartDashboard.putNumber("Hot Count", hotCount);
-       SmartDashboard.putNumber("Total Count", totalCount);
+       SmartDashboard.putNumber("Hot Count", hotTargetFinds);
+       SmartDashboard.putNumber("Total Count", hotTargetChecks);
+       SmartDashboard.putNumber(RobotMap.SMARTDASH_HOT_TARGET_CHECKS, 0.0);
        
         //cameraLights.set(Relay.Value.kReverse);
         cameraLights.set(true);
@@ -251,20 +252,20 @@ public class Camera extends Subsystem {
                                  double distance = computeDistance(filteredImage, distanceReport, target.verticalIndex);
                                  if(target.Hot)
                                  {
-                                         hotCount = hotCount+1;
-                                         totalCount = totalCount+1;
+                                         hotTargetFinds = hotTargetFinds+1;
+                                         hotTargetChecks = hotTargetChecks+1;
                                          System.out.println("Hot target located");
-                                         SmartDashboard.putString(SMART_DASH_HOT_TARGET_RESULT, "Hot target located");
-                                         SmartDashboard.putNumber("Hot Count", hotCount);
-                                         SmartDashboard.putNumber("Total Count", totalCount);
+                                         SmartDashboard.putString(SMARTDASH_HOT_TARGET_RESULT, "Hot target located");
+                                         SmartDashboard.putNumber("Hot Count", hotTargetFinds);
+                                         SmartDashboard.putNumber("Total Count", hotTargetChecks);
                                          System.out.println("Distance: " + distance);
                                          this.SetIndicatorLights(true, false, false);
                                  } else {
-                                         totalCount = totalCount+1;
+                                         hotTargetChecks = hotTargetChecks+1;
                                          System.out.println("No hot target present");
-                                         SmartDashboard.putString(SMART_DASH_HOT_TARGET_RESULT, "Not Hot");
-                                         SmartDashboard.putNumber("Hot Count", hotCount);
-                                         SmartDashboard.putNumber("Total Count", totalCount);
+                                         SmartDashboard.putString(SMARTDASH_HOT_TARGET_RESULT, "Not Hot");
+                                         SmartDashboard.putNumber("Hot Count", hotTargetFinds);
+                                         SmartDashboard.putNumber("Total Count", hotTargetChecks);
                                          System.out.println("Distance: " + distance);
                                          this.SetIndicatorLights(false, false, true);
                                  }

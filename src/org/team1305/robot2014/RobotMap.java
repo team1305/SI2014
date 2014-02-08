@@ -16,6 +16,11 @@ package org.team1305.robot2014;
 public class RobotMap {
     //PWM channels
     //*Chassis
+    
+    public static final String SMARTDASH_HOT_TARGET_CHECKS = "Hot Target Checks";
+    public static final String SMARTDASH_HOT_TARGET_FINDS = "Hot Target Finds";
+    public static final int MAX_AUTONOMOUS_HOT_TARGET_CHECKS = 3;
+    
     public static final int PWM_DRIVE_LEFT_FRONT  = 1;
     public static final int PWM_DRIVE_LEFT_BACK   = 2;
     public static final int PWM_DRIVE_RIGHT_FRONT = 3;

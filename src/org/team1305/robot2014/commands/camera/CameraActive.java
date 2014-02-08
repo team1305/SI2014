@@ -4,18 +4,21 @@
  */
 package org.team1305.robot2014.commands.camera;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.commands.CommandBase;
+import org.team1305.robot2014.RobotMap;
 
 /**
  *
  * @author Kim
  */
 public class CameraActive extends CommandBase {
-    
+    private int hotTargetChecks;
     public CameraActive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(camera);
+        
     }
 
     // Called just before this Command runs the first time
@@ -30,7 +33,8 @@ public class CameraActive extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        hotTargetChecks = (int) SmartDashboard.getNumber(RobotMap.SMARTDASH_HOT_TARGET_CHECKS, 0.0);
+        return (hotTargetChecks > RobotMap.MAX_AUTONOMOUS_HOT_TARGET_CHECKS);
     }
 
     // Called once after isFinished returns true
