@@ -3,28 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team1305.robot2014.commands.pneumatic;
+package org.team1305.robot2014.commands.claw;
 
 import org.team1305.robot2014.commands.CommandBase;
 
 /**
  *
- * @author Paul Belanger
+ * @author Kim
  */
-public class Run extends CommandBase {
+public class ClawRight extends CommandBase {
     
-    public Run() {
-        requires(pneumatic);
+    public ClawRight() {
+        // Use requires() here to declare subsystem dependencies
+        requires(claw);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        pneumatic.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        pneumatic.update();
+        claw.clawRight();
+        claw.getPot();
     }
 
     // Make this return true when this Command no longer needs to run execute()

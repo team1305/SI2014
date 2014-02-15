@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.RobotMap;
-import org.team1305.robot2014.commands.pneumatic.Run;
+import org.team1305.robot2014.commands.pneumatic.PneumaticsRun;
 
 /**
  * The Pneumatic class is simply a structure to manage the compressor. 
@@ -32,7 +32,7 @@ public class Pneumatic extends Subsystem {
     
     public void initDefaultCommand() {
         //The compressor simply runs. Nothing else to worry about.
-        setDefaultCommand(new Run());
+        setDefaultCommand(new PneumaticsRun());
     }
     
     /**
