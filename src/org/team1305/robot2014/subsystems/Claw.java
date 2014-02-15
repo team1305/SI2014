@@ -27,20 +27,20 @@ public class Claw extends Subsystem {
     //PID constatnts for the claw PIDs.
     //TODO: get proper values for these.
     private final double CLAW_P =  0.3;
-    private final double CLAW_I = 0.01;
-    private final double CLAW_D = 0.1;
+    private final double CLAW_I = 0.02;
+    private final double CLAW_D = 0.0;
     
     private final double CLAW_P2 = -0.3;
-    private final double CLAW_I2 = -0.01;
-    private final double CLAW_D2 = 0.1;
+    private final double CLAW_I2 = -0.02;
+    private final double CLAW_D2 = 0.0;
     
     //Constants for potientiometer claw positions
     private final double POTVALUE_LEFT_PARK = 0;
     private final double POTVALUE_LEFT_OPEN = 2.5;
-    private final double POTVALUE_LEFT_CLOSED = 3.45;
+    private final double POTVALUE_LEFT_CLOSED = 3.4;
     private final double POTVALUE_RIGHT_PARK = 5;
     private final double POTVALUE_RIGHT_OPEN = 2;
-    private final double POTVALUE_RIGHT_CLOSED = 1.25;
+    private final double POTVALUE_RIGHT_CLOSED = 1.20;
     
 
     //the sensor and motor objects. 
@@ -60,14 +60,14 @@ public class Claw extends Subsystem {
         //TODO: Set input and output ranges
         leftPID.setInputRange(0.0, 5.0);
         rightPID.setInputRange(0.0, 5.0);
-        leftPID.setOutputRange(-0.3, 0.3);
-        rightPID.setOutputRange(-0.3, 0.3);
+        leftPID.setOutputRange(-1, 1);
+        rightPID.setOutputRange(-1, 1);
     }
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-        setDefaultCommand(new ClawPark());
+        setDefaultCommand(new ClawStop());
     }
     /**
      * Sets the claws to the fully-retracted park position. 
@@ -76,7 +76,7 @@ public class Claw extends Subsystem {
      * Ideally, once the match starts, the claws will never go back to this state.
      */
     public void park(){
-        if (potLeft.get() >= 0.005){
+        if (potLeft.get() >= 0.1){
             leftPID.setSetpoint(POTVALUE_LEFT_PARK);
             //mLeftClaw.set(0);
         }
@@ -85,7 +85,7 @@ public class Claw extends Subsystem {
             leftPID.disable();
         }
         
-        if (potRight.get() <= 4.97){
+        if (potRight.get() <= 4.90){
             rightPID.setSetpoint(POTVALUE_RIGHT_PARK);
             //mRightClaw.set(0.0);
         }
@@ -133,7 +133,7 @@ public class Claw extends Subsystem {
             //mRightClaw.set(0);
         }
         
-        rightPID.setSetpoint(POTVALUE_RIGHT_OPEN);
+        //rightPID.setSetpoint(POTVALUE_RIGHT_OPEN);
         state = 1;
         SmartDashboard.putString("CONTROL MODE", "AUTO MODE");
         SmartDashboard.putString("Claw Status", "Opening");
@@ -144,6 +144,8 @@ public class Claw extends Subsystem {
     public void getPot(){
         SmartDashboard.putNumber("Left Claw", potLeft.pidGet());
         SmartDashboard.putNumber("Right Claw", potRight.pidGet());
+        SmartDashboard.putNumber("LeftPID", leftPID.get());
+        SmartDashboard.putNumber("RightPID", rightPID.get());
     }
     /**
      * Close the claws, attempting to grasp the ball. 
@@ -157,7 +159,7 @@ public class Claw extends Subsystem {
             //mLeftClaw.set(0.3);
             leftPID.setSetpoint(POTVALUE_LEFT_CLOSED);
         }
-        else if (potLeft.get() <= 3.4){
+        else if (potLeft.get() <= 3.3){
             //mLeftClaw.set(0.3);
             leftPID.setSetpoint(POTVALUE_LEFT_CLOSED);
         }
@@ -166,11 +168,11 @@ public class Claw extends Subsystem {
            mLeftClaw.set(0);
         }
         
-        if (potRight.get() >= 1.3){
+        if (potRight.get() >= 1.25){
             rightPID.setSetpoint(POTVALUE_RIGHT_CLOSED);
             //mRightClaw.set(0.3);
         }
-        else if (potRight.get() <= 1.2){
+        else if (potRight.get() <= 1.15){
             rightPID.setSetpoint(POTVALUE_RIGHT_CLOSED);
             //mRightClaw.set(0.3);
         }
@@ -198,33 +200,35 @@ public class Claw extends Subsystem {
         //rightPID.disable();
         //leftPID.disable();
         SmartDashboard.putString("CONTROL MODE", "MANUAL MODE");
-        //mRightClaw.set(0.3);
+        mRightClaw.set(0.3);
     }
     
     public void clawLeft(){
         //leftPID.disable();
         //rightPID.disable();
         SmartDashboard.putString("CONTROL MODE", "MANUAL MODE");
-        //mLeftClaw.set(0.3);
+        mLeftClaw.set(0.3);
     }
     
     public void clawRightReverse(){
         //rightPID.disable();
         //leftPID.disable();
         SmartDashboard.putString("CONTROL MODE", "MANUAL MODE");
-        //mRightClaw.set(-0.3);
+        mRightClaw.set(-0.3);
     }
     
     public void clawLeftReverse(){
         //leftPID.disable();
         //rightPID.disable();
         SmartDashboard.putString("CONTROL MODE", "MANUAL MODE");
-        //mLeftClaw.set(-0.3);
+        mLeftClaw.set(-0.3);
     }
     /**
      * Stops the claw movement.
      */
     public void clawstop() {
+        rightPID.disable();
+        leftPID.disable();
         mLeftClaw.set(0);
         mRightClaw.set(0);
     }

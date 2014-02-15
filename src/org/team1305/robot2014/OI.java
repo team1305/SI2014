@@ -48,8 +48,8 @@ public class OI {
     public static final int BTN_RCLICK = 10;
     public static final int BTN_2LB = 7; //right and left bumpers
     public static final int BTN_2RB = 8;
-    public static final int BTN_2LTrigger = 5;
-    public static final int BTN_2RTrigger = 6;
+    public static final int BTN_2LTrigger = 1;
+    public static final int BTN_2RTrigger = 2;
     
     //All keybindings for X-MODE
     private final Joystick driveStick = new Joystick(1);
