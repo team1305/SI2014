@@ -30,6 +30,7 @@ public class Underglow extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+    
     /**
      * Turns the underglow on.
      */
@@ -39,9 +40,17 @@ public class Underglow extends Subsystem {
     /**
      * Turns the underglow off. 
      */
+    
+    /**
+     * Turns underglow off.
+     */
     public void off(){
         lights.set(Relay.Value.kOn);
     }
+    
+    /**
+     * Changes the state of the underglow [On/Off].
+     */
     public void toggle(){
         if(lights.get() == Relay.Value.kOff){
             lights.set(Relay.Value.kOn);
@@ -50,5 +59,4 @@ public class Underglow extends Subsystem {
             lights.set(Relay.Value.kOff);
         }
     }
-    
 }

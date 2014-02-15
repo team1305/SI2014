@@ -6,16 +6,16 @@
 package org.team1305.robot2014.commands.catapult;
 
 import org.team1305.robot2014.commands.CommandBase;
+import org.team1305.robot2014.subsystems.Catapult;
 
 /**
  *
  * @author Root 1
  */
-public class CatapultStop extends CommandBase {
+public class CatapultReverse extends CommandBase {
     
-    public CatapultStop() {
+    public CatapultReverse() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
         requires(catapult);
     }
 
@@ -25,7 +25,7 @@ public class CatapultStop extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        catapult.Stop();
+       // catapult.Reverse();
     }
 
     // Make this return true when this Command no longer needs to run execute()

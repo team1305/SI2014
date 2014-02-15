@@ -27,12 +27,13 @@ public class CatapultFire extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        catapult.pullFiringPin(engaged);
+        System.out.println("In CatapultFire");
+        catapult.PullFiringPin(engaged);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

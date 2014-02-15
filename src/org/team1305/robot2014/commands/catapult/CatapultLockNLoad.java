@@ -6,6 +6,7 @@
 package org.team1305.robot2014.commands.catapult;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.commands.CommandBase;
 
 /**
@@ -16,7 +17,9 @@ public class CatapultLockNLoad extends CommandBase {
     
     private int currentState = 0;
     private Timer delayTimer = new Timer();
+    private Timer reverseTimer = new Timer();
     private static final double DELAY_BEFORE_TIMER = 0.5;
+    private static final double DELAY_DURING_REVERSE = 3;
     private boolean isDone = false;
     public boolean shooterLoaded = false;
     
@@ -32,32 +35,62 @@ public class CatapultLockNLoad extends CommandBase {
     }
 
     // Called repeatedly when this Command is scheduled to run
+    /**
+     * Group which controls the winch loading.
+     * Sets gearbox in enabled position, then starts the winch motor [if it isn't already at the bottom].
+     */
     protected void execute() {
         switch (currentState){
             case 0:
+                //Starts delayTimer, engages transmission.
+                isDone = false;
                 delayTimer.start();
-                catapult.setTransmissionEngaged(true);
+                catapult.SetTransmissionEngaged(true);
+                SmartDashboard.putString("Winch", "Engaging");
                 currentState++;
                 break;
             case 1:
                 if (delayTimer.get()>=DELAY_BEFORE_TIMER)
                 {
+                    //enables winch if it isn't already loaded.
+                    catapult.WinchAtLimit();
                     currentState++;
                 }
                 break;
             case 2:
-                if (!catapult.winch()){
-                currentState++;
+                if (catapult.WinchAtLimit()==true){
+                    SmartDashboard.putString("Winch", "Should be raising");
+                    reverseTimer.start();
+                    catapult.Reverse(-1);
+                    currentState++;
                 }
                 break;
             case 3:
+                if (reverseTimer.get()>=DELAY_DURING_REVERSE){
+                    catapult.Reverse(0);
+                    currentState++;
+                }
+                break;
+            case 4:
                 isDone = true;
+                SmartDashboard.putString("Winch", "Finished raising");
                 break;
         }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+        if(isDone == true){
+           isDone = false;
+           delayTimer.stop();
+           delayTimer.reset();
+           reverseTimer.stop();
+           reverseTimer.reset();
+           currentState = 0;
+           SmartDashboard.putString("Winch", "Exiting Group");
+           return true; 
+        }
+       
         return false;
     }
 

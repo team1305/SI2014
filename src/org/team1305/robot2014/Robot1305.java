@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.commands.autonomous.AutonomousCommand;
 import org.team1305.robot2014.commands.CommandBase;
+import org.team1305.robot2014.commands.autonomous.AutonomousMasterGroup;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,7 +26,7 @@ import org.team1305.robot2014.commands.CommandBase;
  */
 public class Robot1305 extends IterativeRobot {
 
-    Command autonomousCommand = new AutonomousCommand();
+    Command autonomousCommand = new AutonomousMasterGroup();
 
     /**
      * This function is run when the robot is first started up and should be
@@ -33,9 +35,11 @@ public class Robot1305 extends IterativeRobot {
     public void robotInit() {
         // instantiate the command used for the autonomous period
         //autonomousCommand = new ExampleCommand();
-
+        
         // Initialize all subsystems
         CommandBase.init();
+        SmartDashboard.putData(Scheduler.getInstance());
+        SmartDashboard.putData("Autonomous Command", autonomousCommand);
     }
 
     public void autonomousInit() {

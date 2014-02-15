@@ -5,6 +5,7 @@
  */
 package org.team1305.robot2014.commands.autonomous;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.commands.camera.CameraActive;
@@ -16,18 +17,44 @@ import org.team1305.robot2014.commands.catapult.CatapultFire;
  * @author Root 1
  */
 public class AutonomousMasterGroup extends CommandGroup {
-    double hotCount = SmartDashboard.getNumber("Hot Count");
+    double hotCount;
     
     public AutonomousMasterGroup() {
+                
+        if (DriverStation.getInstance().getLocation() == 2){
+        addSequential(new AutonomousRotate());
         addSequential(new CameraActive());
+            if (hotCount >= 2){
+                 // System.out.println("Detected high amount of Hot Goals");
+                SmartDashboard.putString("HEY THIS WORKS", "BOO");
+                addSequential(new CatapultFire());
+                addSequential(new AutonomousMobility());
+            }
+            else{
+                //System.out.println("No hot goal");
+                SmartDashboard.putString("HEY THIS WORKS", "HEY");
+                addSequential(new AutonomousMobility());
+                addSequential(new CatapultFire());
+            }
+        
+        }
+          addSequential(new CameraActive());
+          SmartDashboard.putNumber("What I read", hotCount);
+          hotCount = SmartDashboard.getNumber("Hot Count");
+          SmartDashboard.putNumber("What I read", hotCount);
         if (hotCount >= 2){
+           // System.out.println("Detected high amount of Hot Goals");
+            SmartDashboard.putString("HEY THIS WORKS", "BOO");
             addSequential(new CatapultFire());
             addSequential(new AutonomousMobility());
         }
         else{
+            //System.out.println("No hot goal");
+            SmartDashboard.putString("HEY THIS WORKS", "HEY");
             addSequential(new AutonomousMobility());
             addSequential(new CatapultFire());
         }
+        
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

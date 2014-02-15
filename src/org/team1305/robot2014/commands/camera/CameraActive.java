@@ -12,8 +12,10 @@ import org.team1305.robot2014.RobotMap;
  *
  * @author Kim
  */
+
 public class CameraActive extends CommandBase {
     private int hotTargetChecks;
+    int CAMERA_TIMEOUT = 2;
     public CameraActive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -23,7 +25,7 @@ public class CameraActive extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        this.setTimeout(cameraTimeout);
+        this.setTimeout(CAMERA_TIMEOUT);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -33,8 +35,11 @@ public class CameraActive extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        hotTargetChecks = (int) SmartDashboard.getNumber(RobotMap.SMARTDASH_HOT_TARGET_CHECKS, 0.0);
-        return (hotTargetChecks > RobotMap.MAX_AUTONOMOUS_HOT_TARGET_CHECKS);
+        hotTargetChecks = (int) SmartDashboard.getNumber(RobotMap.SMARTDASH_HOT_TARGET_CHECKS, 0);
+        SmartDashboard.putNumber("i read hot checks = ", hotTargetChecks);
+        System.out.println((hotTargetChecks > RobotMap.MAX_AUTONOMOUS_HOT_TARGET_CHECKS) | this.isTimedOut());
+        return (hotTargetChecks > RobotMap.MAX_AUTONOMOUS_HOT_TARGET_CHECKS) | this.isTimedOut();
+        
     }
 
     // Called once after isFinished returns true

@@ -77,14 +77,14 @@ public class Camera extends Subsystem {
     }
     
     public class TargetReport {
-		int verticalIndex;
-		int horizontalIndex;
-		boolean Hot;
-		double totalScore;
-		double leftScore;
-		double rightScore;
-		double tapeWidthScore;
-		double verticalScore;
+	int verticalIndex;
+	int horizontalIndex;
+	boolean Hot;
+	double totalScore;
+	double leftScore;
+	double rightScore;
+	double tapeWidthScore;
+	double verticalScore;
     }
 
 
@@ -121,11 +121,12 @@ public class Camera extends Subsystem {
     public void analyzeImage(){
         //System.out.println("---Begin Camera report--- done = " + done);
        //waitASec(2); 
-        if (camera.freshImage() == false){
-            System.out.println("Analyzed image already, please get a new one and try again.");
-        }
-        else if (isAlreadyRunning()){
+       
+       if (isAlreadyRunning()){
            System.out.println("---Camera already running - try again later ---");
+       }
+       else if (camera.freshImage() == false){
+            System.out.println("Analyzed image already, please get a new one and try again.");
        }
        else
        {
@@ -140,43 +141,43 @@ public class Camera extends Subsystem {
               * 
               */
            
-                ColorImage image = camera.getImage();     // comment if using stored images
-                System.out.println("---Camera already running - try again later ---");
-             //ColorImage image;                           // next 2 lines read image from flash on cRIO
-             //image = new RGBImage("/testImage.jpg");		// get the sample image from the cRIO flash
+              ColorImage image = camera.getImage();     // comment if using stored images
+              System.out.println("---Camera already running - try again later ---");
+              //ColorImage image;                           // next 2 lines read image from flash on cRIO
+              //image = new RGBImage("/testImage.jpg");		// get the sample image from the cRIO flash
                 
-                 //************************
-           /*  final int HUE_MIN = 85;
-            final int HUE_MAX = 172;
-            final int SATURATION_MIN = 0;
-            final int SATURATION_MAX = 255;
-            final int LUMINANCE_MIN = 148;
-            final int LUMINANCE_MAX = 255;
+              //************************
+              /*  final int HUE_MIN = 85;
+              final int HUE_MAX = 172;
+              final int SATURATION_MIN = 0;
+              final int SATURATION_MAX = 255;
+              final int LUMINANCE_MIN = 148;
+              final int LUMINANCE_MAX = 255;
 */
-            final int HUE_MIN = 29;    
-            final int HUE_MAX = 198;
-            final int SATURATION_MIN = 0;
-            final int SATURATION_MAX = 255;
-            final int LUMINANCE_MIN = 138;
-            final int LUMINANCE_MAX = 255;
-             //************************
-            BinaryImage thresholdImage = image.thresholdHSL(HUE_MIN, HUE_MAX, SATURATION_MIN, SATURATION_MAX, LUMINANCE_MIN, LUMINANCE_MAX);
+              final int HUE_MIN = 29;    
+              final int HUE_MAX = 198;
+              final int SATURATION_MIN = 0;
+              final int SATURATION_MAX = 255;
+              final int LUMINANCE_MIN = 138;
+              final int LUMINANCE_MAX = 255;
+              //************************
+              BinaryImage thresholdImage = image.thresholdHSL(HUE_MIN, HUE_MAX, SATURATION_MIN, SATURATION_MAX, LUMINANCE_MIN, LUMINANCE_MAX);
             
-             //BinaryImage thresholdImage = image.thresholdHSV(105, 137, 230, 255, 133, 183);   // keep only green objects
-             //thresholdImage.write("/threshold.bmp");
-             BinaryImage filteredImage = thresholdImage.particleFilter(cc);           // filter out small particles
-             //filteredImage.write("/filteredImage.bmp");
-            System.out.println("--- after particle Filter ---");
+              //BinaryImage thresholdImage = image.thresholdHSV(105, 137, 230, 255, 133, 183);   // keep only green objects
+              //thresholdImage.write("/threshold.bmp");
+              BinaryImage filteredImage = thresholdImage.particleFilter(cc);           // filter out small particles
+              //filteredImage.write("/filteredImage.bmp");
+              System.out.println("--- after particle Filter ---");
             
-            //iterate through each particle and score to see if it is a target
-             Scores scores[] = new Scores[filteredImage.getNumberParticles()];
-             horizontalTargetCount = verticalTargetCount = 0;
-             System.out.println("--- number of particles is on next output line ---");
-            System.out.println(filteredImage.getNumberParticles());
+              //iterate through each particle and score to see if it is a target
+              Scores scores[] = new Scores[filteredImage.getNumberParticles()];
+              horizontalTargetCount = verticalTargetCount = 0;
+              System.out.println("--- number of particles is on next output line ---");
+              System.out.println(filteredImage.getNumberParticles());
             
-             if(filteredImage.getNumberParticles() > 0)
-             {
-                for (int i = 0; i < MAX_PARTICLES && i < filteredImage.getNumberParticles(); i++) {
+              if(filteredImage.getNumberParticles() > 0)
+              {
+                 for (int i = 0; i < MAX_PARTICLES && i < filteredImage.getNumberParticles(); i++) {
                     ParticleAnalysisReport report = filteredImage.getParticleAnalysisReport(i);
                     scores[i] = new Scores();
 
@@ -278,16 +279,16 @@ public class Camera extends Subsystem {
                  * each pass of this loop.
                  */
              
-             System.out.println("--- done analysis - about to free Images ---");
+           System.out.println("--- done analysis - about to free Images ---");
                 filteredImage.free();
                 thresholdImage.free();
                 image.free();
                 
-            } catch (NIVisionException ex) {
+           } catch (NIVisionException ex) {
                 System.out.println("---NIVision exception---");
                 System.out.println(ex.getMessage());
                 ex.printStackTrace();
-            }
+           }
            catch(AxisCameraException ex) {
                System.out.println("---Axis Camera exception---");
                System.out.println(ex.getMessage());
@@ -312,7 +313,7 @@ public class Camera extends Subsystem {
   protected void interrupted() 
   {
       done = true;
-    }
+  }
     
   protected boolean waitASec(int secondsToWait) {
         //while (not isTimedOut()){
@@ -323,18 +324,18 @@ public class Camera extends Subsystem {
             
         }
         return false;
-    }
+  }
     
-    public boolean isAlreadyRunning(){
+  public boolean isAlreadyRunning(){
        System.out.println("---in IsAlreadyRunning returning " + !done + " because done = " + done); 
         return !done ;
-    }
+  }
     
-    public void initDefaultCommand() {
+  public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
         setDefaultCommand(new CameraInactive());
-    }
+  }
     
      /**
      * Computes the estimated distance to a target using the height of the particle in the image. For more information and graphics
@@ -345,7 +346,7 @@ public class Camera extends Subsystem {
      * @param outer True if the particle should be treated as an outer target, false to treat it as a center target
      * @return The estimated distance to the target in Inches.
      */
-    double computeDistance (BinaryImage image, ParticleAnalysisReport report, int particleNumber) throws NIVisionException {
+  double computeDistance (BinaryImage image, ParticleAnalysisReport report, int particleNumber) throws NIVisionException {
             double rectLong, height;
             int targetHeight;
 
@@ -356,7 +357,7 @@ public class Camera extends Subsystem {
             targetHeight = 32;
 
             return Y_IMAGE_RES * targetHeight / (height * 12 * 2 * Math.tan(VIEW_ANGLE*Math.PI/(180*2)));
-    }
+  }
     
     /**
      * Computes a score (0-100) comparing the aspect ratio to the ideal aspect ratio for the target. This method uses
@@ -425,10 +426,10 @@ public class Camera extends Subsystem {
     }
     
     	/**
-	 * Converts a ratio with ideal value of 1 to a score. The resulting function is piecewise
-	 * linear going from (0,0) to (1,100) to (2,0) and is 0 for all inputs outside the range 0-2
-	 */
-	double ratioToScore(double ratio)
+	* Converts a ratio with ideal value of 1 to a score. The resulting function is piecewise
+	* linear going from (0,0) to (1,100) to (2,0) and is 0 for all inputs outside the range 0-2
+	*/
+    double ratioToScore(double ratio)
 	{
 		return (Math.max(0, Math.min(100*(1-Math.abs(1-ratio)), 100)));
 	}
@@ -439,7 +440,7 @@ public class Camera extends Subsystem {
 	 * 
 	 * Returns True if the target is hot. False if it is not.
 	 */
-	boolean hotOrNot(TargetReport target)
+    boolean hotOrNot(TargetReport target)
 	{
 		boolean isHot = true;
 		
