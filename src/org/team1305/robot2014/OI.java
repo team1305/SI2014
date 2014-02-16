@@ -53,38 +53,49 @@ public class OI {
     
     //All keybindings for X-MODE
     private final Joystick driveStick = new Joystick(1);
-    private final Joystick driveStick2 = new Joystick(2);
-    Button driveA = new JoystickButton(driveStick, BTN_A);
-    Button driveB = new JoystickButton(driveStick, BTN_B);
+    private final Joystick shootStick = new Joystick(2);
+    
+    //drive stick
     Button driveX = new JoystickButton(driveStick, BTN_X);
-    Button driveY = new JoystickButton(driveStick, BTN_Y);
+    Button driveB = new JoystickButton(driveStick, BTN_B);
     Button driveStart = new JoystickButton(driveStick, BTN_START);
     Button driveAnalyze = new JoystickButton(driveStick, BTN_BACK);
-    //Button driveLTrigger = new JoystickButton(driveStick, BTN_2LTrigger);
-    Button driveRB = new JoystickButton(driveStick, BTN_RB);
-    Button driveLB = new JoystickButton(driveStick, BTN_LB);
+ 
+    Button driveRBump = new JoystickButton(driveStick, BTN_RB);
+    Button driveLBump = new JoystickButton(driveStick, BTN_LB);
     Button driveLClick = new JoystickButton(driveStick, BTN_LCLICK);
     Button driveRClick = new JoystickButton(driveStick, BTN_RCLICK);
-    Button driveLB2 = new JoystickButton(driveStick2, BTN_LB);
-    Button driveRB2 = new JoystickButton(driveStick2, BTN_RB);
-    Button driveLTrigger2 = new JoystickButton (driveStick2, BTN_2LTrigger);
-    Button driveRTrigger2 = new JoystickButton (driveStick2, BTN_2RTrigger);
-        
+    Button driveLTrigger = new JoystickButton (shootStick, BTN_2LTrigger);
+    Button driveRTrigger = new JoystickButton (shootStick, BTN_2RTrigger);
+    
+    //shoot stick
+    Button shootY = new JoystickButton(driveStick, BTN_Y);
+    Button shootA = new JoystickButton(driveStick, BTN_A);
+    Button shootLBump = new JoystickButton(shootStick, BTN_LB);
+    Button shootRBump = new JoystickButton(shootStick, BTN_RB);
+    Button shootLTrigger = new JoystickButton (shootStick, BTN_2LTrigger);
+    Button shootRTrigger = new JoystickButton (shootStick, BTN_2RTrigger);
+    
+    //not used
+    
+    
     public OI(){
         driveStart.whenPressed(new ToggleSmoothing());
         driveAnalyze.whenPressed(new CameraActive());
         //driveLTrigger.whenPressed(new CatapultStop());
-        driveX.whenPressed(new CatapultLockNLoad());
-        driveY.whenPressed(new CatapultUnlock());
+        
+        driveX.whenPressed(new CatapultUnlock());
         driveB.whenPressed(new CatapultLock());
-        driveA.whenPressed(new CatapultFire());
-        driveRB.whenPressed(new ClawOpen());
+        driveLBump.whenPressed(new ClawOpen());
+        driveRBump.whenPressed(new ClawClose());
         driveLClick.whenPressed(new ClawClose());
-        driveLB.whenPressed(new ClawPark());
-        driveLB2.whileHeld(new ClawLeft());
-        driveRB2.whileHeld(new ClawRight());
-        driveRTrigger2.whileHeld(new ClawLeftReverse());
-        driveLTrigger2.whileHeld(new ClawRightReverse());
+        
+        shootA.whenPressed(new CatapultFire());
+        shootY.whenPressed(new CatapultLockNLoad());
+        shootLBump.whileHeld(new ClawOpen());
+        shootRBump.whileHeld(new ClawClose());
+        shootRTrigger.whileHeld(new ClawLeftReverse());
+        shootLTrigger.whileHeld(new ClawRightReverse());
     }
     public double getDriveXL(){     
         SmartDashboard.putNumber("XL", driveStick.getRawAxis(AXIS_XL));
