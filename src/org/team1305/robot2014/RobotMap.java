@@ -48,14 +48,14 @@ public class RobotMap {
 
     //Digital I/O
     //*Chassis
-    public static final int DIO_ENC_RIGHTWHEEL_P1 = 1; //Encoder on the right drivewheel.
-    public static final int DIO_ENC_RIGHTWHEEL_P2 = 2; //Encoder on the right drivewheel.
-    public static final int DIO_ENC_LEFTWHEEL_P1  = 3; //Encoder on the left drivewheel.
-    public static final int DIO_ENC_LEFTWHEEL_P2  = 4; //Encoder on the left drivewheel.
-    public static final int DIO_ENC_RIGHTWHEEL_BACK_P1 = 9; //Encoder on the right drivewheel.
-    public static final int DIO_ENC_RIGHTWHEEL_BACK_P2 = 10; //Encoder on the right drivewheel.
-    public static final int DIO_ENC_LEFTWHEEL_BACK_P1  = 11; //Encoder on the left drivewheel.
-    public static final int DIO_ENC_LEFTWHEEL_BACK_P2  = 12; //Encoder on the left drivewheel.
+    public static final int DIO_ENC_LEFTWHEEL_P1 = 1; //Encoder on the right drivewheel.
+    public static final int DIO_ENC_LEFTTWHEEL_P2 = 2; //Encoder on the right drivewheel.
+    public static final int DIO_ENC_RIGHTWHEEL_P1  = 3; //Encoder on the left drivewheel.
+    public static final int DIO_ENC_RIGHTWHEEL_P2  = 4; //Encoder on the left drivewheel.
+    public static final int DIO_ENC_LEFTWHEEL_BACK_P1 = 9; //Encoder on the right drivewheel.
+    public static final int DIO_ENC_LEFTWHEEL_BACK_P2 = 10; //Encoder on the right drivewheel.
+    public static final int DIO_ENC_RIGHTWHEEL_BACK_P1  = 11; //Encoder on the left drivewheel.
+    public static final int DIO_ENC_RIGHTWHEEL_BACK_P2  = 12; //Encoder on the left drivewheel.
     //*Catapult
     public static final int DIO_LIMIT_CAT_BOTTOM = 5;
     

@@ -8,6 +8,7 @@ package org.team1305.robot2014.subsystems;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team1305.robot2014.RobotMap;
+import org.team1305.robot2014.commands.underglow.Solid;
 
 /**
  * The blue underglow for the robot.
@@ -28,7 +29,7 @@ public class Underglow extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new Solid());
     }
     
     /**
