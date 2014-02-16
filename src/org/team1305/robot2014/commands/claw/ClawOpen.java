@@ -15,7 +15,7 @@ import org.team1305.robot2014.commands.CommandBase;
 public class ClawOpen extends CommandBase {
     
     private Timer timeout = new Timer();
-    private final double timeoutEnd = 0.5;
+    private final double timeoutEnd = 1;
     
     public ClawOpen() {
         // Use requires() here to declare subsystem dependencies

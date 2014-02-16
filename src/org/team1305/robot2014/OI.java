@@ -71,6 +71,8 @@ public class OI {
     //shoot stick
     Button shootY = new JoystickButton(shootStick, BTN_Y);
     Button shootA = new JoystickButton(shootStick, BTN_A);
+    Button shootX = new JoystickButton(shootStick, BTN_X);
+    Button shootB = new JoystickButton(shootStick, BTN_B);
     Button shootLBump = new JoystickButton(shootStick, BTN_LB);
     Button shootRBump = new JoystickButton(shootStick, BTN_RB);
     Button shootLTrigger = new JoystickButton (shootStick, BTN_2LTrigger);
@@ -84,18 +86,18 @@ public class OI {
         driveAnalyze.whenPressed(new CameraActive());
         //driveLTrigger.whenPressed(new CatapultStop());
         
-        driveX.whenPressed(new CatapultUnlock());
-        driveB.whenPressed(new CatapultLock());
+        shootX.whenPressed(new CatapultUnlock());
+        shootB.whenPressed(new CatapultLock());
         driveLBump.whenPressed(new ClawOpen());
         driveRBump.whenPressed(new ClawClose());
         driveLClick.whenPressed(new ClawClose());
         
         shootA.whenPressed(new CatapultFire());
         shootY.whenPressed(new CatapultLockNLoad());
-        shootLBump.whileHeld(new ClawOpen());
-        shootRBump.whileHeld(new ClawClose());
-        shootRTrigger.whileHeld(new ClawLeftReverse());
-        shootLTrigger.whileHeld(new ClawRightReverse());
+//        shootLBump.whileHeld(new ClawOpen());
+//        shootRBump.whileHeld(new ClawClose());
+//        shootRTrigger.whileHeld(new ClawLeftReverse());
+//        shootLTrigger.whileHeld(new ClawRightReverse());
     }
     public double getDriveXL(){     
         SmartDashboard.putNumber("XL", driveStick.getRawAxis(AXIS_XL));
@@ -120,9 +122,9 @@ public class OI {
         return driveStick.getRawAxis(AXIS_TRIG);
     }    
     
-    public boolean RTrigAndBumpPressed(){
-        return shootRTrigger.get() == true & shootRBump.get() == true;
-    }
+//    public boolean RTrigAndBumpPressed(){
+//        return shootRTrigger.get() == true & shootRBump.get() == true;
+//    }
 
 }
 

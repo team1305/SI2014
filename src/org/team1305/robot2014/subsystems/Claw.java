@@ -27,21 +27,21 @@ public class Claw extends Subsystem {
     //PID constatnts for the claw PIDs.
     //TODO: get proper values for these.
     private final double CLAW_P =  0.3;
-    private final double CLAW_I = 0.02;
+    private final double CLAW_I = 0.03;
     private final double CLAW_D = 0.0;
     
     private final double CLAW_P2 = -0.3;
-    private final double CLAW_I2 = -0.02;
+    private final double CLAW_I2 = -0.03;
     private final double CLAW_D2 = 0.0;
     
     //Constants for potientiometer claw positions
     private final double POTVALUE_LEFT_PARK = 0;
     private final double POTVALUE_LEFT_OPEN = 2.5;
     private final double POT_TOLERANCE = 0.1;
-    private final double POTVALUE_LEFT_CLOSED = 3.4;
+    private final double POTVALUE_LEFT_CLOSED = 3.6;
     private final double POTVALUE_RIGHT_PARK = 5;
     private final double POTVALUE_RIGHT_OPEN = 2;
-    private final double POTVALUE_RIGHT_CLOSED = 1.20;
+    private final double POTVALUE_RIGHT_CLOSED = 1.0;
     
 
     //the sensor and motor objects. 

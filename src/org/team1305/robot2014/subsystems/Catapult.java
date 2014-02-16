@@ -35,6 +35,7 @@ public class Catapult extends Subsystem {
     
     //Locks firing.
     private boolean fireLock;
+    private boolean isLoaded = false;
 
     /**
      * Locks firing.
@@ -67,6 +68,7 @@ public class Catapult extends Subsystem {
             
             sLatchSolenoid.set(true);
             fireLock = true;
+            isLoaded = false;
         }else{
             sLatchSolenoid.set(false);
             
@@ -87,7 +89,7 @@ public class Catapult extends Subsystem {
      * @return Returns true if motor is still running, false if limit is hit, to LockNLoad.
      */
     public boolean WinchAtLimit(){
-        if (dBottomLimit.get() == false){
+        if (dBottomLimit.get() == false && isLoaded == false){
             mLeftPullback.set(1);
             mRightPullback.set(1);
             sLatchSolenoid.set(false);
@@ -96,6 +98,7 @@ public class Catapult extends Subsystem {
             mLeftPullback.set(0);
             mRightPullback.set(0);
             sGearSolenoid.set(true);
+            isLoaded = true;
             return true;
         }
         

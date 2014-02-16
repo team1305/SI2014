@@ -32,11 +32,11 @@ public class CatapultLockNLoad extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        if (catapult.GetLockState())
-            currentState = 4;
-        else
-            currentState = 0;
-        //kshadToWind = false;
+//        if (catapult.GetLockState())
+//            currentState = 4;
+//        else
+//            currentState = 0;
+//        //kshadToWind = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
