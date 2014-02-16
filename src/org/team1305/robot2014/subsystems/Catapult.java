@@ -65,7 +65,7 @@ public class Catapult extends Subsystem {
     public void PullFiringPin(boolean engaged){
         if (fireLock == false){
             //Stops all actions, fireLock must be false.
-            
+            sGearSolenoid.set(false);
             sLatchSolenoid.set(true);
             fireLock = true;
             isLoaded = false;

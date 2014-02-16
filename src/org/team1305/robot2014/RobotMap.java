@@ -67,12 +67,12 @@ public class RobotMap {
 
     //Analog Channels
     //*Catapult
-    public static final int AN_PULLBACK_POT   = 1; //Potentiometer located on the pullback mechanism.
+    public static final int AN_PULLBACK_POT   = 4; //Potentiometer located on the pullback mechanism.
     //*Claw
     public static final int AN_CLAW_POT_LEFT  = 2;
     public static final int AN_CLAW_POT_RIGHT = 3;
     
-    public static final int AN_GYRO = 4;
+    public static final int AN_GYRO = 1;
     
     
 }

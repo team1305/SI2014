@@ -5,6 +5,7 @@
  */
 package org.team1305.robot2014.subsystems;
 
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
@@ -65,6 +66,7 @@ public class Chassis extends Subsystem {
     private boolean isDone = false;
     private int currentState = 0;
     private int currentRotateState = 0;
+    Gyro gyro = new Gyro(RobotMap.AN_GYRO);
     //********************************************************//
     
     /**
@@ -87,6 +89,9 @@ public class Chassis extends Subsystem {
         robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
         
         SmartDashboard.putBoolean("SmoothingStatus", isSmoothing);
+        
+        gyro.reset();
+        
     }
     
     /**
@@ -110,7 +115,9 @@ public class Chassis extends Subsystem {
             drivePID.setSetpoint(-magnitude*Math.abs(magnitude));
             steerPID.setSetpoint(direction*Math.abs(direction));
             rotatePID.setSetpoint(-rotation*Math.abs(rotation));
-            robotDrive.mecanumDrive_Cartesian(drivePID.get(), steerPID.get(), rotatePID.get(), 90.0);
+            robotDrive.mecanumDrive_Cartesian(drivePID.get(), steerPID.get(), rotatePID.get(),90.0);
+            //robotDrive.mecanumDrive_Cartesian(drivePID.get(), steerPID.get(), rotatePID.get(), gyro.getAngle());
+            SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
             SmartDashboard.putNumber("Pre-PID magnitude", magnitude);
             SmartDashboard.putNumber("Pre-PID direction", direction);
             SmartDashboard.putNumber("Pre-PID rotation", rotation);

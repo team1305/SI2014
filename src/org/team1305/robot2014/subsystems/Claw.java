@@ -26,12 +26,12 @@ import org.team1305.robot2014.commands.claw.ClawStop;
 public class Claw extends Subsystem {
     //PID constatnts for the claw PIDs.
     //TODO: get proper values for these.
-    private final double CLAW_P =  0.3;
-    private final double CLAW_I = 0.03;
+    private final double CLAW_P =  0.5;
+    private final double CLAW_I = 0.05;
     private final double CLAW_D = 0.0;
     
-    private final double CLAW_P2 = -0.3;
-    private final double CLAW_I2 = -0.03;
+    private final double CLAW_P2 = -0.5;
+    private final double CLAW_I2 = -0.05;
     private final double CLAW_D2 = 0.0;
     
     //Constants for potientiometer claw positions
