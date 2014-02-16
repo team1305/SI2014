@@ -29,7 +29,7 @@ public class MecanumDrive extends CommandBase {
         oi.getDriveYL();
         oi.getDriveYR();
         oi.getDriveTRIG();
-        chassis.mecanumDrive_Cartesian(oi.getDriveYL(), oi.getDriveXL(), oi.getDriveTRIG());
+        chassis.mecanumDrive_Cartesian(oi.getDriveYL(), oi.getDriveXL(), oi.getDriveXR());
     }
 
     // Make this return true when this Command no longer needs to run execute()

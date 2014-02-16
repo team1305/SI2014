@@ -65,12 +65,12 @@ public class OI {
     Button driveLBump = new JoystickButton(driveStick, BTN_LB);
     Button driveLClick = new JoystickButton(driveStick, BTN_LCLICK);
     Button driveRClick = new JoystickButton(driveStick, BTN_RCLICK);
-    Button driveLTrigger = new JoystickButton (shootStick, BTN_2LTrigger);
-    Button driveRTrigger = new JoystickButton (shootStick, BTN_2RTrigger);
+    Button driveLTrigger = new JoystickButton (driveStick, BTN_2LTrigger);
+    Button driveRTrigger = new JoystickButton (driveStick, BTN_2RTrigger);
     
     //shoot stick
-    Button shootY = new JoystickButton(driveStick, BTN_Y);
-    Button shootA = new JoystickButton(driveStick, BTN_A);
+    Button shootY = new JoystickButton(shootStick, BTN_Y);
+    Button shootA = new JoystickButton(shootStick, BTN_A);
     Button shootLBump = new JoystickButton(shootStick, BTN_LB);
     Button shootRBump = new JoystickButton(shootStick, BTN_RB);
     Button shootLTrigger = new JoystickButton (shootStick, BTN_2LTrigger);
@@ -114,10 +114,15 @@ public class OI {
         return driveStick.getRawAxis(AXIS_YR);
     }
     public double getDriveTRIG(){
-       SmartDashboard.putNumber("TRIG", driveStick.getRawAxis(AXIS_TRIG));
+        //This is no longer used
+       SmartDashboard.putNumber("TRIG", shootStick.getRawAxis(AXIS_TRIG));
 
         return driveStick.getRawAxis(AXIS_TRIG);
-    }       
+    }    
+    
+    public boolean RTrigAndBumpPressed(){
+        return shootRTrigger.get() == true & shootRBump.get() == true;
+    }
 
 }
 

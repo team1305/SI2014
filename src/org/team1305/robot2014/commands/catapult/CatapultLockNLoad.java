@@ -15,13 +15,14 @@ import org.team1305.robot2014.commands.CommandBase;
  */
 public class CatapultLockNLoad extends CommandBase {
     
-    private int currentState = 0;
+    private int currentState; // = 0;
     private Timer delayTimer = new Timer();
     private Timer reverseTimer = new Timer();
     private static final double DELAY_BEFORE_TIMER = 0.5;
     private static final double DELAY_DURING_REVERSE = 3;
     private boolean isDone = false;
     public boolean shooterLoaded = false;
+    //boolean hadToWind = false;
     
     public CatapultLockNLoad() {
         // Use requires() here to declare subsystem dependencies
@@ -31,7 +32,11 @@ public class CatapultLockNLoad extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        
+        if (catapult.GetLockState())
+            currentState = 4;
+        else
+            currentState = 0;
+        //kshadToWind = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -40,6 +45,7 @@ public class CatapultLockNLoad extends CommandBase {
      * Sets gearbox in enabled position, then starts the winch motor [if it isn't already at the bottom].
      */
     protected void execute() {
+        
         switch (currentState){
             case 0:
                 //Starts delayTimer, engages transmission.
@@ -58,6 +64,9 @@ public class CatapultLockNLoad extends CommandBase {
                 }
                 break;
             case 2:
+                //ksif (hadToWind == false)
+                //ks        currentState++;
+                //kselse 
                 if (catapult.WinchAtLimit()==true){
                     SmartDashboard.putString("Winch", "Should be raising");
                     reverseTimer.start();

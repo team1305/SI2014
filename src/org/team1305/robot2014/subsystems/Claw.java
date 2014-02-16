@@ -37,6 +37,7 @@ public class Claw extends Subsystem {
     //Constants for potientiometer claw positions
     private final double POTVALUE_LEFT_PARK = 0;
     private final double POTVALUE_LEFT_OPEN = 2.5;
+    private final double POT_TOLERANCE = 0.1;
     private final double POTVALUE_LEFT_CLOSED = 3.4;
     private final double POTVALUE_RIGHT_PARK = 5;
     private final double POTVALUE_RIGHT_OPEN = 2;
@@ -63,6 +64,16 @@ public class Claw extends Subsystem {
         leftPID.setOutputRange(-1, 1);
         rightPID.setOutputRange(-1, 1);
     }
+    
+    public boolean ClawsAreClearToFire()
+    {
+        if ((potLeft.get() >= POTVALUE_LEFT_OPEN - POT_TOLERANCE) & 
+                (potRight.get() <= POTVALUE_RIGHT_OPEN + POT_TOLERANCE))
+            return true;
+        else
+            return false;
+        
+    }
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -76,7 +87,7 @@ public class Claw extends Subsystem {
      * Ideally, once the match starts, the claws will never go back to this state.
      */
     public void park(){
-        if (potLeft.get() >= 0.1){
+        if (potLeft.get() >= POTVALUE_LEFT_PARK - POT_TOLERANCE){ //0.1){
             leftPID.setSetpoint(POTVALUE_LEFT_PARK);
             //mLeftClaw.set(0);
         }
@@ -85,7 +96,7 @@ public class Claw extends Subsystem {
             leftPID.disable();
         }
         
-        if (potRight.get() <= 4.90){
+        if (potRight.get() <= POTVALUE_RIGHT_PARK + POT_TOLERANCE){ //4.90){
             rightPID.setSetpoint(POTVALUE_RIGHT_PARK);
             //mRightClaw.set(0.0);
         }
@@ -107,11 +118,11 @@ public class Claw extends Subsystem {
      * The driver should approach the ball in this state.
      */
     public void open(){
-        if (potLeft.get() <= 2.4){
+        if (potLeft.get() <= POTVALUE_LEFT_OPEN - POT_TOLERANCE){ //.4){
             leftPID.setSetpoint(POTVALUE_LEFT_OPEN);
             //mLeftClaw.set(0.3);
         }
-        else if (potLeft.get() >= 2.6){
+        else if (potLeft.get() >= POTVALUE_LEFT_OPEN + POT_TOLERANCE){ //{2.6){
             leftPID.setSetpoint(POTVALUE_LEFT_OPEN);
             //mLeftClaw.set(0.3);
         }
@@ -120,11 +131,11 @@ public class Claw extends Subsystem {
             //mLeftClaw.set(0);
         }
         
-        if (potRight.get() <= 1.95){
+        if (potRight.get() <= POTVALUE_RIGHT_OPEN - POT_TOLERANCE){ //1.95){
             //mRightClaw.set(0.3);
             rightPID.setSetpoint(POTVALUE_RIGHT_OPEN);
         }
-        else if (potRight.get() >= 2.05){
+        else if (potRight.get() >= POTVALUE_RIGHT_OPEN + POT_TOLERANCE){ //2.05){
             //mRightClaw.set(0.3);
             rightPID.setSetpoint(POTVALUE_RIGHT_OPEN);
         }
@@ -155,11 +166,11 @@ public class Claw extends Subsystem {
      * may fire with the claws in their closed state. 
      */
     public void close(){
-        if (potLeft.get() >= 3.5){
+        if (potLeft.get() >= POTVALUE_LEFT_CLOSED + POT_TOLERANCE){ //3.5){
             //mLeftClaw.set(0.3);
             leftPID.setSetpoint(POTVALUE_LEFT_CLOSED);
         }
-        else if (potLeft.get() <= 3.3){
+        else if (potLeft.get() <= POTVALUE_LEFT_CLOSED - POT_TOLERANCE){ //3.3){
             //mLeftClaw.set(0.3);
             leftPID.setSetpoint(POTVALUE_LEFT_CLOSED);
         }
@@ -168,11 +179,11 @@ public class Claw extends Subsystem {
            mLeftClaw.set(0);
         }
         
-        if (potRight.get() >= 1.25){
+        if (potRight.get() >= POTVALUE_RIGHT_CLOSED + POT_TOLERANCE){ //1.25){
             rightPID.setSetpoint(POTVALUE_RIGHT_CLOSED);
             //mRightClaw.set(0.3);
         }
-        else if (potRight.get() <= 1.15){
+        else if (potRight.get() <= POTVALUE_RIGHT_CLOSED - POT_TOLERANCE){ //1.15){
             rightPID.setSetpoint(POTVALUE_RIGHT_CLOSED);
             //mRightClaw.set(0.3);
         }
