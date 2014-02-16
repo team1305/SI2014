@@ -5,6 +5,7 @@
  */
 package org.team1305.robot2014.commands.claw;
 
+import edu.wpi.first.wpilibj.Timer;
 import org.team1305.robot2014.commands.CommandBase;
 
 /**
@@ -13,14 +14,19 @@ import org.team1305.robot2014.commands.CommandBase;
  */
 public class ClawPark extends CommandBase {
     
+    private Timer timeout = new Timer();
+    private final double timeoutEnd = 0.5;
+    
     public ClawPark() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        
         requires(claw);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        timeout.start();
         claw.enable();
     }
 
@@ -32,11 +38,15 @@ public class ClawPark extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+        if (timeout.get()>=timeoutEnd){
+            return true;
+        }
         return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+        claw.clawstop();
     }
 
     // Called when another command which requires one or more of the same

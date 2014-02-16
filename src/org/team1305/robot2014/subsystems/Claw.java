@@ -8,6 +8,7 @@ package org.team1305.robot2014.subsystems;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.RobotMap;
@@ -26,11 +27,11 @@ import org.team1305.robot2014.commands.claw.ClawStop;
 public class Claw extends Subsystem {
     //PID constatnts for the claw PIDs.
     //TODO: get proper values for these.
-    private final double CLAW_P =  0.3;
+    private final double CLAW_P =  0.5;
     private final double CLAW_I = 0.02;
     private final double CLAW_D = 0.0;
     
-    private final double CLAW_P2 = -0.3;
+    private final double CLAW_P2 = -0.5;
     private final double CLAW_I2 = -0.02;
     private final double CLAW_D2 = 0.0;
     
@@ -42,7 +43,6 @@ public class Claw extends Subsystem {
     private final double POTVALUE_RIGHT_OPEN = 2;
     private final double POTVALUE_RIGHT_CLOSED = 1.20;
     
-
     //the sensor and motor objects. 
     private final Talon mLeftClaw = new Talon(RobotMap.PWM_CLAW_LEFT);
     private final Talon mRightClaw = new Talon(RobotMap.PWM_CLAW_RIGHT);
@@ -223,6 +223,7 @@ public class Claw extends Subsystem {
         SmartDashboard.putString("CONTROL MODE", "MANUAL MODE");
         mLeftClaw.set(-0.3);
     }
+    
     /**
      * Stops the claw movement.
      */
