@@ -75,6 +75,11 @@ public class Catapult extends Subsystem {
         }
     }
     
+    public boolean GetBottomLimitSWState()
+    {
+         return dBottomLimit.get();
+    }
+    
     /**
      * Moves gears to allow loading of catapult.
      * @param engaged Gears in position to load.

@@ -1,3 +1,4 @@
+
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) FIRST 2008. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -12,10 +13,14 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.commands.autonomous.AutonomousCommand;
 import org.team1305.robot2014.commands.CommandBase;
 import org.team1305.robot2014.commands.autonomous.AutonomousMasterGroup;
+import org.team1305.robot2014.commands.autonomous.AutoNoStrafe;
+import org.team1305.robot2014.commands.autonomous.AutoStrafeLeft;
+import org.team1305.robot2014.commands.autonomous.AutoStrafeRight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,8 +31,9 @@ import org.team1305.robot2014.commands.autonomous.AutonomousMasterGroup;
  */
 public class Robot1305 extends IterativeRobot {
 
-    Command autonomousCommand = new AutonomousMasterGroup();
-
+    Command autonomousCommand; // = new AutonomousMasterGroup();
+    SendableChooser  autoChooser ;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -38,13 +44,21 @@ public class Robot1305 extends IterativeRobot {
         
         // Initialize all subsystems
         CommandBase.init();
-        SmartDashboard.putNumber("Left or Right", 0);
         SmartDashboard.putData(Scheduler.getInstance());
-        SmartDashboard.putData("Autonomous Command", autonomousCommand);
+        autoChooser = new SendableChooser();
+        System.out.println("about to addDefault");
+        autoChooser.addDefault("Default AutoMasterGroup", new AutonomousMasterGroup());
+        //autoChooser.addDefault("Default Auto NoStrafe", new AutoNoStrafe());
+        autoChooser.addObject("Strafe Left", new AutoStrafeLeft());
+        autoChooser.addObject("Strafe Right", new AutoStrafeRight());
+        SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
+        
     }
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
+        autonomousCommand = (Command) autoChooser.getSelected();
+        SmartDashboard.putData("Autonomous Command", autonomousCommand);
         autonomousCommand.start();
     }
 
@@ -77,3 +91,4 @@ public class Robot1305 extends IterativeRobot {
         LiveWindow.run();
     }
 }
+
