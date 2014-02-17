@@ -66,6 +66,7 @@ public class Chassis extends Subsystem {
     private boolean isDone = false;
     private int currentState = 0;
     private int currentRotateState = 0;
+    public boolean lowGear = false;
     Gyro gyro = new Gyro(RobotMap.AN_GYRO);
     //********************************************************//
     
@@ -77,9 +78,16 @@ public class Chassis extends Subsystem {
         steerPID.enable();
         rotatePID.enable();
 
-        drivePID.setOutputRange(-1.0, 1.0);
-        steerPID.setOutputRange(-1.0, 1.0);
-        rotatePID.setOutputRange(-1.0, 1.0);
+        if (lowGear == false){
+            drivePID.setOutputRange(-1.0, 1.0);
+            steerPID.setOutputRange(-1.0, 1.0);
+            rotatePID.setOutputRange(-1.0, 1.0);
+        }
+        else{
+            drivePID.setOutputRange(-0.5, 0.5);
+            steerPID.setOutputRange(-0.5, 0.5);
+            rotatePID.setOutputRange(-0.7, 0.7);
+        }
         
         drivePID.setInputRange(-1.0, 1.0);
         steerPID.setInputRange(-1.0, 1.0);
@@ -91,6 +99,7 @@ public class Chassis extends Subsystem {
         SmartDashboard.putBoolean("SmoothingStatus", isSmoothing);
         
         gyro.reset();
+        gyro.setSensitivity(0.007);
         
     }
     
@@ -112,11 +121,12 @@ public class Chassis extends Subsystem {
      */
     public void mecanumDrive_Cartesian(double magnitude, double direction, double rotation){
         if (isSmoothing){
-            drivePID.setSetpoint(-magnitude*Math.abs(magnitude));
-            steerPID.setSetpoint(direction*Math.abs(direction));
-            rotatePID.setSetpoint(-rotation*Math.abs(rotation));
-            robotDrive.mecanumDrive_Cartesian(drivePID.get(), steerPID.get(), rotatePID.get(),90.0);
-            //robotDrive.mecanumDrive_Cartesian(drivePID.get(), steerPID.get(), rotatePID.get(), gyro.getAngle());
+//            drivePID.setSetpoint(-magnitude*Math.abs(magnitude));
+//            steerPID.setSetpoint(direction*Math.abs(direction));
+//            rotatePID.setSetpoint(-rotation*Math.abs(rotation));
+            //robotDrive.mecanumDrive_Cartesian(drivePID.get(), steerPID.get(), rotatePID.get(),90.0);
+            //robotDrive.mecanumDrive_Cartesian(drivePID.get(), steerPID.get(), rotatePID.get(), gyro.getAngle()+90.0);
+            robotDrive.mecanumDrive_Cartesian(magnitude, direction, rotation, gyro.getAngle()+90);
             SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
             SmartDashboard.putNumber("Pre-PID magnitude", magnitude);
             SmartDashboard.putNumber("Pre-PID direction", direction);
@@ -233,6 +243,15 @@ public class Chassis extends Subsystem {
                 return true; 
         }
         return false;
+    }
+    
+    public void switchGear(){
+        if (lowGear == false){
+            lowGear = true;
+        }
+        else{
+            lowGear = false;
+        }
     }
     
     /**

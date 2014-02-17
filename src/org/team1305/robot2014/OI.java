@@ -12,6 +12,7 @@ import org.team1305.robot2014.commands.catapult.CatapultLock;
 import org.team1305.robot2014.commands.catapult.CatapultLockNLoad;
 import org.team1305.robot2014.commands.catapult.CatapultStop;
 import org.team1305.robot2014.commands.catapult.CatapultUnlock;
+import org.team1305.robot2014.commands.chassis.ToggleGear;
 import org.team1305.robot2014.commands.chassis.ToggleSmoothing;
 import org.team1305.robot2014.commands.claw.ClawClose;
 import org.team1305.robot2014.commands.claw.ClawLeft;
@@ -90,10 +91,12 @@ public class OI {
         shootB.whenPressed(new CatapultLock());
         driveLBump.whenPressed(new ClawOpen());
         driveRBump.whenPressed(new ClawClose());
-        driveLClick.whenPressed(new ClawClose());
+        driveLClick.whenPressed(new ToggleGear());
+        driveB.whenPressed(new ClawPark());
         
         shootA.whenPressed(new CatapultFire());
         shootY.whenPressed(new CatapultLockNLoad());
+        
 //        shootLBump.whileHeld(new ClawOpen());
 //        shootRBump.whileHeld(new ClawClose());
 //        shootRTrigger.whileHeld(new ClawLeftReverse());
