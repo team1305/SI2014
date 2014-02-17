@@ -78,16 +78,11 @@ public class Chassis extends Subsystem {
         steerPID.enable();
         rotatePID.enable();
 
-        if (lowGear == false){
-            drivePID.setOutputRange(-1.0, 1.0);
-            steerPID.setOutputRange(-1.0, 1.0);
-            rotatePID.setOutputRange(-1.0, 1.0);
-        }
-        else{
-            drivePID.setOutputRange(-0.5, 0.5);
-            steerPID.setOutputRange(-0.5, 0.5);
-            rotatePID.setOutputRange(-0.7, 0.7);
-        }
+        
+        drivePID.setOutputRange(-1.0, 1.0);
+        steerPID.setOutputRange(-1.0, 1.0);
+        rotatePID.setOutputRange(-1.0, 1.0);
+        
         
         drivePID.setInputRange(-1.0, 1.0);
         steerPID.setInputRange(-1.0, 1.0);
@@ -121,12 +116,16 @@ public class Chassis extends Subsystem {
      */
     public void mecanumDrive_Cartesian(double magnitude, double direction, double rotation){
         if (isSmoothing){
-//            drivePID.setSetpoint(-magnitude*Math.abs(magnitude));
-//            steerPID.setSetpoint(direction*Math.abs(direction));
-//            rotatePID.setSetpoint(-rotation*Math.abs(rotation));
-            //robotDrive.mecanumDrive_Cartesian(drivePID.get(), steerPID.get(), rotatePID.get(),90.0);
-            //robotDrive.mecanumDrive_Cartesian(drivePID.get(), steerPID.get(), rotatePID.get(), gyro.getAngle()+90.0);
-            robotDrive.mecanumDrive_Cartesian(magnitude, direction, rotation, gyro.getAngle()+90);
+            drivePID.setSetpoint(-magnitude*Math.abs(magnitude));
+            steerPID.setSetpoint(direction*Math.abs(direction));
+            rotatePID.setSetpoint(rotation*Math.abs(rotation));
+            if (lowGear == true){
+                robotDrive.mecanumDrive_Cartesian(drivePID.get()/2, steerPID.get()/2, rotatePID.get()/1.7,90.0);    
+            }
+            else{
+                robotDrive.mecanumDrive_Cartesian(drivePID.get(), steerPID.get(), rotatePID.get(),90.0);    
+            }
+            
             SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
             SmartDashboard.putNumber("Pre-PID magnitude", magnitude);
             SmartDashboard.putNumber("Pre-PID direction", direction);
@@ -176,7 +175,7 @@ public class Chassis extends Subsystem {
                     currentState++;
                     break;
                 }
-                robotDrive.arcadeDrive(0, 1);
+                robotDrive.arcadeDrive(0, 0.2);
                 break;
             case 2:
                 isDone = true;
@@ -203,6 +202,7 @@ public class Chassis extends Subsystem {
                     currentState++;
                     break;
                 }    
+            robotDrive.arcadeDrive(0,-0.2);
             case 2:
                 isDone = true;
                 return true;
@@ -232,13 +232,7 @@ public class Chassis extends Subsystem {
                 robotDrive.arcadeDrive(1, 0);
                 break;
             case 2:
-                if (mobilityTimer.get()>=DELAY_AFTER_MOBILITY_TIMER){
-                    robotDrive.arcadeDrive(0,0);
-                    currentState++;
-                }      
-                robotDrive.arcadeDrive(-1, 0);
-                break;
-            case 3:
+                robotDrive.arcadeDrive(0, 0);
                 isDone = true;
                 return true; 
         }
@@ -248,9 +242,11 @@ public class Chassis extends Subsystem {
     public void switchGear(){
         if (lowGear == false){
             lowGear = true;
+            SmartDashboard.putString("Gear Status", "In Low Gear");
         }
         else{
             lowGear = false;
+            SmartDashboard.putString("Gear Status", "In High Gear");
         }
     }
     

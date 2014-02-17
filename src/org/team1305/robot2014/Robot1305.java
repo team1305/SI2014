@@ -38,6 +38,7 @@ public class Robot1305 extends IterativeRobot {
         
         // Initialize all subsystems
         CommandBase.init();
+        SmartDashboard.putNumber("Left or Right", 0);
         SmartDashboard.putData(Scheduler.getInstance());
         SmartDashboard.putData("Autonomous Command", autonomousCommand);
     }

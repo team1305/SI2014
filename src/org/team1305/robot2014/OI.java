@@ -8,8 +8,10 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.commands.camera.CameraActive;
 import org.team1305.robot2014.commands.catapult.CatapultFire;
+import org.team1305.robot2014.commands.catapult.CatapultFireGroup;
 import org.team1305.robot2014.commands.catapult.CatapultLock;
 import org.team1305.robot2014.commands.catapult.CatapultLockNLoad;
+import org.team1305.robot2014.commands.catapult.CatapultLockNLoadGroup;
 import org.team1305.robot2014.commands.catapult.CatapultStop;
 import org.team1305.robot2014.commands.catapult.CatapultUnlock;
 import org.team1305.robot2014.commands.chassis.ToggleGear;
@@ -94,8 +96,8 @@ public class OI {
         driveLClick.whenPressed(new ToggleGear());
         driveB.whenPressed(new ClawPark());
         
-        shootA.whenPressed(new CatapultFire());
-        shootY.whenPressed(new CatapultLockNLoad());
+        shootA.whenPressed(new CatapultFireGroup());
+        shootY.whenPressed(new CatapultLockNLoadGroup());
         
 //        shootLBump.whileHeld(new ClawOpen());
 //        shootRBump.whileHeld(new ClawClose());

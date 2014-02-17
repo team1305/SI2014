@@ -42,8 +42,9 @@ public class RobotMap {
     //Solenoids
     //*Catapult
     public static final int SOL_LATCH = 1;  //Latches Catapult down for safety.
-    
     public static final int SOL_GEAR  = 2; //Shifts Catapult gear transmission.
+    public static final int SOL_LPASSER = 5;
+    public static final int SOL_RPASSER = 6;
     //*Pneumatic
 
     //Digital I/O
