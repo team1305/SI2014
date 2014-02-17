@@ -26,13 +26,13 @@ public class AutonomousMasterGroup extends CommandGroup {
         addSequential(new CameraActive());
             if (hotCount >= 2){
                  // System.out.println("Detected high amount of Hot Goals");
-                SmartDashboard.putString("HEY THIS WORKS", "BOO");
+                SmartDashboard.putString("HEY THIS WORKS", "BOO1");
                 addSequential(new CatapultFire());
                 addSequential(new AutonomousMobility());
             }
             else{
                 //System.out.println("No hot goal");
-                SmartDashboard.putString("HEY THIS WORKS", "HEY");
+                SmartDashboard.putString("HEY THIS WORKS", "HEY1");
                 addSequential(new AutonomousMobility());
                 addSequential(new CatapultFire());
             }
@@ -44,13 +44,13 @@ public class AutonomousMasterGroup extends CommandGroup {
           SmartDashboard.putNumber("What I read", hotCount);
         if (hotCount >= 2){
            // System.out.println("Detected high amount of Hot Goals");
-            SmartDashboard.putString("HEY THIS WORKS", "BOO");
+            SmartDashboard.putString("HEY THIS WORKS", "BOO2");
             addSequential(new CatapultFire());
             addSequential(new AutonomousMobility());
         }
         else{
             //System.out.println("No hot goal");
-            SmartDashboard.putString("HEY THIS WORKS", "HEY");
+            SmartDashboard.putString("HEY THIS WORKS", "HEY2");
             addSequential(new AutonomousMobility());
             addSequential(new CatapultFire());
         }

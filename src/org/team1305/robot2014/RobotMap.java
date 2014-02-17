@@ -17,6 +17,7 @@ public class RobotMap {
    //Camera
     public static final String SMARTDASH_HOT_TARGET_CHECKS = "Hot Target Checks";
     public static final String SMARTDASH_HOT_TARGET_FINDS = "Hot Target Finds";
+    public static final String SMARTDASH_MY_AUTO = "Chosen Auto";
     public static final int MAX_AUTONOMOUS_HOT_TARGET_CHECKS = 3;
     public static final int SOL_CAMERA_LIGHT_RING = 4;
     

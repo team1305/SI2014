@@ -32,10 +32,10 @@ public class CatapultLockNLoad extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-//        if (catapult.GetLockState())
-//            currentState = 4;
-//        else
-//            currentState = 0;
+        if (catapult.GetBottomLimitSWState())
+            currentState = 4;
+        else
+            currentState = 0;
 //        //kshadToWind = false;
     }
 

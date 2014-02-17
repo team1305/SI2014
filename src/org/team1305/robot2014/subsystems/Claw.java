@@ -35,12 +35,16 @@ public class Claw extends Subsystem {
     private final double CLAW_D2 = 0.0;
     
     //Constants for potientiometer claw positions
+    private final double POT_TOLERANCE = 0.1;
+    
     private final double POTVALUE_LEFT_PARK = 0;
     private final double POTVALUE_LEFT_OPEN = 2.5;
-    private final double POT_TOLERANCE = 0.1;
+    private final double POTVALUE_LEFT_OK_TO_FIRE = 2.9;
     private final double POTVALUE_LEFT_CLOSED = 3.6;
+    
     private final double POTVALUE_RIGHT_PARK = 5;
     private final double POTVALUE_RIGHT_OPEN = 2;
+    private final double POTVALUE_RIGHT_OK_TO_FIRE = 1.6;    
     private final double POTVALUE_RIGHT_CLOSED = 1.0;
     
 
@@ -65,16 +69,16 @@ public class Claw extends Subsystem {
         rightPID.setOutputRange(-1, 1);
     }
     
-    public boolean ClawsAreClearToFire()
+    public boolean ClawsAwayFromCatapult()
     {
-        if ((potLeft.get() >= POTVALUE_LEFT_OPEN - POT_TOLERANCE) & 
-                (potRight.get() <= POTVALUE_RIGHT_OPEN + POT_TOLERANCE))
+        if ((potLeft.get() <= POTVALUE_LEFT_OK_TO_FIRE + POT_TOLERANCE) & 
+                (potRight.get() >= POTVALUE_RIGHT_OK_TO_FIRE - POT_TOLERANCE))
             return true;
         else
             return false;
         
     }
-
+    
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
@@ -206,6 +210,7 @@ public class Claw extends Subsystem {
     public int getState(){
         return state;
     }
+    
     
     public void clawRight(){
         //rightPID.disable();
