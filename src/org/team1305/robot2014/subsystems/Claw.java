@@ -249,6 +249,9 @@ public class Claw extends Subsystem {
         mRightClaw.set(0);
     }
     
+    /**
+     * Enables the PIDs.
+     */
     public void enable() {
         rightPID.enable();
         leftPID.enable();

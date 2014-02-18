@@ -27,12 +27,17 @@ public class Passer extends Subsystem {
         setDefaultCommand(new PassDisable());
     }
     
-    
+    /**
+     * Fires passing mechanism.
+     */
     public void enable(){
         sLPasser.set(true);
         sRpasser.set(true);
     }
     
+    /**
+     * Retracts passing mechanism.
+     */
     public void disable(){
         sLPasser.set(false);
         sRpasser.set(false);

@@ -125,9 +125,6 @@ public class Camera extends Subsystem {
        if (isAlreadyRunning()){
            System.out.println("---Camera already running - try again later ---");
        }
-       else if (camera.freshImage() == false){
-            System.out.println("Analyzed image already, please get a new one and try again.");
-       }
        else
        {
            done = false;

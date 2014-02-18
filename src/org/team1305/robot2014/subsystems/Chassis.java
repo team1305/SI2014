@@ -5,6 +5,7 @@
  */
 package org.team1305.robot2014.subsystems;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -53,14 +54,19 @@ public class Chassis extends Subsystem {
     private final PIDController drivePID = new PIDController(DRIVE_P, DRIVE_I, DRIVE_D, driveLink, driveLink);
     private final PIDController steerPID = new PIDController(STEER_P, STEER_I, STEER_D, steerLink, steerLink);
     private final PIDController rotatePID = new PIDController(ROTATE_P, ROTATE_I, ROTATE_D, rotateLink, rotateLink);
+    
+//    private final Encoder eFrontLeft = new Encoder(RobotMap.DIO_ENC_LEFTWHEEL_P1, RobotMap.DIO_ENC_LEFTWHEEL_P2);
+//    private final Encoder eFrontRight = new Encoder(RobotMap.DIO_ENC_RIGHTWHEEL_P1, RobotMap.DIO_ENC_RIGHTWHEEL_P2);
+//    private final Encoder eBackLeft = new Encoder(RobotMap.DIO_ENC_LEFTWHEEL_BACK_P1, RobotMap.DIO_ENC_LEFTWHEEL_BACK_P2);
+//    private final Encoder eBackRight = new Encoder(RobotMap.DIO_ENC_RIGHTWHEEL_BACK_P1, RobotMap.DIO_ENC_RIGHTWHEEL_BACK_P2);
     //********************************************************//
     
     //Timers and delays.
     //********************************************************//
     private Timer mobilityTimer = new Timer();
     private Timer rotateTimer = new Timer();
-    private static final double DELAY_BEFORE_MOBILITY_TIMER = 5;
-    private static final double DELAY_AFTER_MOBILITY_TIMER = 10;
+    private static final double DELAY_BEFORE_MOBILITY_TIMER = 1;
+//    private static final double DELAY_AFTER_MOBILITY_TIMER = 1;
     private static final double DELAY_BEFORE_ROTATE_TIMER = 0.5;
     private static final double DELAY_AFTER_ROTATE_TIMER = 0.5;
     private boolean isDone = false;
@@ -120,19 +126,23 @@ public class Chassis extends Subsystem {
             steerPID.setSetpoint(direction*Math.abs(direction));
             rotatePID.setSetpoint(rotation*Math.abs(rotation));
             if (lowGear == true){
-                robotDrive.mecanumDrive_Cartesian(drivePID.get()/2, steerPID.get()/2, rotatePID.get()/1.7,90.0);    
+                robotDrive.mecanumDrive_Cartesian(drivePID.get()/2.1, steerPID.get()/2, rotatePID.get()/1.6,90.0);    
             }
             else{
                 robotDrive.mecanumDrive_Cartesian(drivePID.get(), steerPID.get(), rotatePID.get(),90.0);    
             }
             
-            SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
-            SmartDashboard.putNumber("Pre-PID magnitude", magnitude);
-            SmartDashboard.putNumber("Pre-PID direction", direction);
-            SmartDashboard.putNumber("Pre-PID rotation", rotation);
-            SmartDashboard.putNumber("Post-PID magnitude", drivePID.get());
-            SmartDashboard.putNumber("Post-PID direction", steerPID.get());
-            SmartDashboard.putNumber("Post-PID rotation", rotatePID.get());
+//            SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
+//            SmartDashboard.putNumber("Pre-PID magnitude", magnitude);
+//            SmartDashboard.putNumber("Pre-PID direction", direction);
+//            SmartDashboard.putNumber("Pre-PID rotation", rotation);
+//            SmartDashboard.putNumber("Post-PID magnitude", drivePID.get());
+//            SmartDashboard.putNumber("Post-PID direction", steerPID.get());
+//            SmartDashboard.putNumber("Post-PID rotation", rotatePID.get());
+//            SmartDashboard.putNumber("ENC LF", eFrontLeft.get());
+//            SmartDashboard.putNumber("ENC RF", eFrontRight.get());
+//            SmartDashboard.putNumber("ENC LB", eBackLeft.get());
+//            SmartDashboard.putNumber("ENC RB", eBackRight.get());
         } 
         else{
             robotDrive.mecanumDrive_Cartesian(-magnitude*Math.abs(magnitude), direction*Math.abs(direction), -rotation*Math.abs(rotation), 90.0);
@@ -229,10 +239,10 @@ public class Chassis extends Subsystem {
                     
                     currentState++;
                 }
-                robotDrive.arcadeDrive(1, 0);
+                robotDrive.mecanumDrive_Cartesian(1, 0, 0, 90);
                 break;
             case 2:
-                robotDrive.arcadeDrive(0, 0);
+                robotDrive.mecanumDrive_Cartesian(0, 0, 0, 90);
                 isDone = true;
                 return true; 
         }

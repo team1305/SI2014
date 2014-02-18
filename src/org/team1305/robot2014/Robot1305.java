@@ -31,9 +31,8 @@ import org.team1305.robot2014.commands.autonomous.AutoStrafeRight;
  */
 public class Robot1305 extends IterativeRobot {
 
-    Command autonomousCommand; // = new AutonomousMasterGroup();
+    Command autonomousCommand = new AutonomousMasterGroup();
     SendableChooser  autoChooser ;
-    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -41,7 +40,6 @@ public class Robot1305 extends IterativeRobot {
     public void robotInit() {
         // instantiate the command used for the autonomous period
         //autonomousCommand = new ExampleCommand();
-        
         // Initialize all subsystems
         CommandBase.init();
         SmartDashboard.putData(Scheduler.getInstance());

@@ -44,12 +44,17 @@ public class AutonomousMasterGroup extends CommandGroup {
         else{
           addParallel(new CameraActive());
           addParallel(new ClawOpen());
+          SmartDashboard.putString("AUTO STATE", "Locking and Loading");
           addSequential(new CatapultLockNLoad());
+          SmartDashboard.putString("AUTO STATE", "Closing claws");
           addSequential(new ClawClose());
+          SmartDashboard.putString("AUTO STATE", "Moving");
           addSequential(new AutonomousMobility());
           SmartDashboard.putNumber("What I read", hotCount);
+          SmartDashboard.putString("AUTO STATE", "Reading camera stuff");
           hotCount = SmartDashboard.getNumber("Hot Count");
           SmartDashboard.putNumber("What I read", hotCount);
+          addSequential(new ClawOpen());
         if (hotCount >= 2){
            // System.out.println("Detected high amount of Hot Goals");
             SmartDashboard.putString("HEY THIS WORKS", "BOO");
