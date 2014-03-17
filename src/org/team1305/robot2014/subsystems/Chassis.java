@@ -5,10 +5,14 @@
  */
 package org.team1305.robot2014.subsystems;
 
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.ManualPIDLink;
 import org.team1305.robot2014.RobotMap;
 import org.team1305.robot2014.commands.chassis.MecanumDrive;
@@ -21,58 +25,91 @@ import org.team1305.robot2014.commands.chassis.MecanumDrive;
  * @author Root 1
  */
 public class Chassis extends Subsystem {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+    //Driving links, such as smoothing and connecting Talons.
+    //********************************************************//
     private boolean isSmoothing = true;
     private final Talon tLeftFront = new Talon(RobotMap.PWM_DRIVE_LEFT_FRONT);
     private final Talon tLeftBack = new Talon(RobotMap.PWM_DRIVE_LEFT_BACK);
     private final Talon tRightFront = new Talon(RobotMap.PWM_DRIVE_RIGHT_FRONT);
     private final Talon tRightBack = new Talon(RobotMap.PWM_DRIVE_RIGHT_BACK);
     private final RobotDrive robotDrive = new RobotDrive(tLeftFront, tLeftBack, tRightFront, tRightBack);
+    //********************************************************//
     
-    private ManualPIDLink driveLink = new ManualPIDLink();
-    private ManualPIDLink steerLink = new ManualPIDLink();
-    private ManualPIDLink rotateLink = new ManualPIDLink();
+    //PID variables, should not be touched.
+    //********************************************************//
+    private final ManualPIDLink steerLink = new ManualPIDLink();
+    private final ManualPIDLink driveLink = new ManualPIDLink();
+    private final ManualPIDLink rotateLink = new ManualPIDLink();
     
     private final double DRIVE_P = 0.0;
     private final double DRIVE_I = 0.4;
-    private final double DRIVE_D = -0.1;
-    
+    private final double DRIVE_D = -0.01;
     private final double STEER_P = 0.0;
     private final double STEER_I = 0.4;
-    private final double STEER_D = -0.1;
-    
+    private final double STEER_D = -0.01;
     private final double ROTATE_P = 0.0;
     private final double ROTATE_I = 0.4;
-    private final double ROTATE_D = -0.1;
+    private final double ROTATE_D = -0.01;
     
     private final PIDController drivePID = new PIDController(DRIVE_P, DRIVE_I, DRIVE_D, driveLink, driveLink);
     private final PIDController steerPID = new PIDController(STEER_P, STEER_I, STEER_D, steerLink, steerLink);
     private final PIDController rotatePID = new PIDController(ROTATE_P, ROTATE_I, ROTATE_D, rotateLink, rotateLink);
     
+//    private final Encoder eFrontLeft = new Encoder(RobotMap.DIO_ENC_LEFTWHEEL_P1, RobotMap.DIO_ENC_LEFTWHEEL_P2);
+//    private final Encoder eFrontRight = new Encoder(RobotMap.DIO_ENC_RIGHTWHEEL_P1, RobotMap.DIO_ENC_RIGHTWHEEL_P2);
+//    private final Encoder eBackLeft = new Encoder(RobotMap.DIO_ENC_LEFTWHEEL_BACK_P1, RobotMap.DIO_ENC_LEFTWHEEL_BACK_P2);
+//    private final Encoder eBackRight = new Encoder(RobotMap.DIO_ENC_RIGHTWHEEL_BACK_P1, RobotMap.DIO_ENC_RIGHTWHEEL_BACK_P2);
+    //********************************************************//
+    
+    //Timers and delays.
+    //********************************************************//
+    private Timer mobilityTimer = new Timer();
+    private Timer rotateTimer = new Timer();
+    private static final double DELAY_BEFORE_MOBILITY_TIMER = 1;
+//    private static final double DELAY_AFTER_MOBILITY_TIMER = 1;
+    private static final double DELAY_BEFORE_ROTATE_TIMER = 0.5;
+    private static final double DELAY_AFTER_ROTATE_TIMER = 0.5;
+    private boolean isDone = false;
+    private int currentState = 0;
+    private int currentRotateState = 0;
+    public boolean lowGear = false;
+    Gyro gyro = new Gyro(RobotMap.AN_GYRO);
+    //********************************************************//
+    
     /**
-     * This is da chassis constructor thingy yo.
+     * This is the chassis constructor.
      */
     public Chassis() {
         drivePID.enable();
         steerPID.enable();
         rotatePID.enable();
+
         
         drivePID.setOutputRange(-1.0, 1.0);
         steerPID.setOutputRange(-1.0, 1.0);
         rotatePID.setOutputRange(-1.0, 1.0);
         
+        
         drivePID.setInputRange(-1.0, 1.0);
         steerPID.setInputRange(-1.0, 1.0);
         rotatePID.setInputRange(-1.0, 1.0);
         
+        robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+        robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+        
+        SmartDashboard.putBoolean("SmoothingStatus", isSmoothing);
+        
+        gyro.reset();
+        gyro.setSensitivity(0.007);
         
     }
     
+    /**
+     * 
+     */
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         setDefaultCommand(new MecanumDrive());
-      
     }
     
     /**
@@ -83,16 +120,32 @@ public class Chassis extends Subsystem {
      * @param direction X movement.
      * @param rotation Rotation movement.
      */
-    public void mecanumDrive_Polar(double magnitude, double direction, double rotation){
+    public void mecanumDrive_Cartesian(double magnitude, double direction, double rotation){
         if (isSmoothing){
-            drivePID.setSetpoint(magnitude);
-            steerPID.setSetpoint(direction);
-            rotatePID.setSetpoint(rotation);
-            robotDrive.mecanumDrive_Polar(drivePID.get(), steerPID.get(), rotatePID.get());
+            drivePID.setSetpoint(-magnitude*Math.abs(magnitude));
+            steerPID.setSetpoint(direction*Math.abs(direction));
+            rotatePID.setSetpoint(rotation*Math.abs(rotation));
+            if (lowGear == true){
+                robotDrive.mecanumDrive_Cartesian(drivePID.get()/2.1, steerPID.get()/2, rotatePID.get()/1.6,90.0);    
+            }
+            else{
+                robotDrive.mecanumDrive_Cartesian(drivePID.get(), steerPID.get(), rotatePID.get(),90.0);    
+            }
             
+//            SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
+//            SmartDashboard.putNumber("Pre-PID magnitude", magnitude);
+//            SmartDashboard.putNumber("Pre-PID direction", direction);
+//            SmartDashboard.putNumber("Pre-PID rotation", rotation);
+//            SmartDashboard.putNumber("Post-PID magnitude", drivePID.get());
+//            SmartDashboard.putNumber("Post-PID direction", steerPID.get());
+//            SmartDashboard.putNumber("Post-PID rotation", rotatePID.get());
+//            SmartDashboard.putNumber("ENC LF", eFrontLeft.get());
+//            SmartDashboard.putNumber("ENC RF", eFrontRight.get());
+//            SmartDashboard.putNumber("ENC LB", eBackLeft.get());
+//            SmartDashboard.putNumber("ENC RB", eBackRight.get());
         } 
         else{
-            robotDrive.mecanumDrive_Polar(magnitude, direction, rotation);
+            robotDrive.mecanumDrive_Cartesian(-magnitude*Math.abs(magnitude), direction*Math.abs(direction), -rotation*Math.abs(rotation), 90.0);
         }
         
     }
@@ -113,15 +166,105 @@ public class Chassis extends Subsystem {
             steerPID.disable();
             rotatePID.disable();
         }
+        SmartDashboard.putBoolean("SmoothingStatus", isSmoothing);
     }
     
     /**
-     * Plz no y u do dis pls stahp.
+     * Rotates the robot towards a camera target in autonomous.
+     * @return 
+     */
+    public boolean rotateMovement(){
+        switch(currentRotateState){
+            case 0:
+                rotateTimer.reset();
+                rotateTimer.start();
+                currentState++;
+                break;
+            case 1:
+                if (rotateTimer.get()>=DELAY_BEFORE_ROTATE_TIMER){
+                    currentState++;
+                    break;
+                }
+                robotDrive.arcadeDrive(0, 0.2);
+                break;
+            case 2:
+                isDone = true;
+                return true;
+        }
+        
+        return false;
+        
+    }
+    
+    /**
+     * Rotates the robot back in autonomous.
+     * @return 
+     */
+    public boolean rotateBack(){
+        switch(currentRotateState){
+            case 0:
+                rotateTimer.reset();
+                rotateTimer.start();
+                currentState++;
+                break;
+            case 1:
+                if (rotateTimer.get()>=DELAY_AFTER_ROTATE_TIMER){
+                    currentState++;
+                    break;
+                }    
+            robotDrive.arcadeDrive(0,-0.2);
+            case 2:
+                isDone = true;
+                return true;
+        }
+        return false;
+        
+    }
+    
+    /**
+     * Moves the robot in autonomous for mobility movement.
+     * Uses mobilityTimer to order events, drives forward for X seconds and then drives backwards for X seconds.
+     * @return Returns true if the function is done.
+     */
+    public boolean mobilityMovement(){
+        switch (currentState){
+            case 0:
+                mobilityTimer.start();
+                
+                currentState++;
+                break;
+            case 1:
+                if (mobilityTimer.get()>=DELAY_BEFORE_MOBILITY_TIMER)
+                {
+                    
+                    currentState++;
+                }
+                robotDrive.mecanumDrive_Cartesian(-1, 0, 0, 90);
+                break;
+            case 2:
+                robotDrive.mecanumDrive_Cartesian(0, 0, 0, 90);
+                isDone = true;
+                return true; 
+        }
+        return false;
+    }
+    
+    public void switchGear(){
+        if (lowGear == false){
+            lowGear = true;
+            SmartDashboard.putString("Gear Status", "In Low Gear");
+        }
+        else{
+            lowGear = false;
+            SmartDashboard.putString("Gear Status", "In High Gear");
+        }
+    }
+    
+    /**
+     * Stops the robot.
      */
     public void stopPlz(){
         robotDrive.arcadeDrive(0,0);
     }
-    
-    
     
     }

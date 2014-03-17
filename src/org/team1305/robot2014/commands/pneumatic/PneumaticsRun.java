@@ -3,39 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team1305.robot2014.commands.catapult;
+package org.team1305.robot2014.commands.pneumatic;
 
 import org.team1305.robot2014.commands.CommandBase;
 
 /**
- *CURRENTLY UNUSED
- * @author Root 1
+ *
+ * @author Paul Belanger
  */
-public class CatapultFire extends CommandBase {
+public class PneumaticsRun extends CommandBase {
     
-    boolean engaged;
-    
-    public CatapultFire() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-        requires(catapult);
+    public PneumaticsRun() {
+        requires(pneumatic);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        pneumatic.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        System.out.println("In CatapultFire");
-        //if (oi.RTrigAndBumpPressed() & claw.ClawsAreClearToFire())
-       // if (claw.ClawsAwayFromCatapult())
-            catapult.PullFiringPin(engaged);
+        pneumatic.update();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

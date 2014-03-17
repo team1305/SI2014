@@ -24,7 +24,12 @@ public class MecanumDrive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        chassis.mecanumDrive_Polar(oi.getDriveYL(), oi.getDriveXL(), oi.getDriveTRIG());
+        oi.getDriveXL();
+        oi.getDriveXR();
+        oi.getDriveYL();
+        oi.getDriveYR();
+        oi.getDriveTRIG();
+        chassis.mecanumDrive_Cartesian(oi.getDriveYL(), oi.getDriveXL(), oi.getDriveXR());
     }
 
     // Make this return true when this Command no longer needs to run execute()

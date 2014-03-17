@@ -3,22 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team1305.robot2014.commands.catapult;
+package org.team1305.robot2014.commands.autonomous;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.team1305.robot2014.RobotMap;
 import org.team1305.robot2014.commands.CommandBase;
 
 /**
- *CURRENTLY UNUSED
- * @author Root 1
+ *
+ * @author Kim
  */
-public class CatapultFire extends CommandBase {
+public class AutoNoStrafe extends CommandBase {
     
-    boolean engaged;
-    
-    public CatapultFire() {
+    public AutoNoStrafe() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(catapult);
     }
 
     // Called just before this Command runs the first time
@@ -27,15 +26,12 @@ public class CatapultFire extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        System.out.println("In CatapultFire");
-        //if (oi.RTrigAndBumpPressed() & claw.ClawsAreClearToFire())
-       // if (claw.ClawsAwayFromCatapult())
-            catapult.PullFiringPin(engaged);
+        SmartDashboard.putString(RobotMap.SMARTDASH_MY_AUTO, "AutoNoStrafe");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

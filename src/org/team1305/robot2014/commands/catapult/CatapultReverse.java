@@ -3,19 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team1305.robot2014.commands.claw;
+package org.team1305.robot2014.commands.catapult;
 
 import org.team1305.robot2014.commands.CommandBase;
+import org.team1305.robot2014.subsystems.Catapult;
 
 /**
  *
  * @author Root 1
  */
-public class Park extends CommandBase {
+public class CatapultReverse extends CommandBase {
     
-    public Park() {
+    public CatapultReverse() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        requires(catapult);
     }
 
     // Called just before this Command runs the first time
@@ -24,6 +25,7 @@ public class Park extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+       // catapult.Reverse();
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team1305.robot2014.commands.catapult;
+package org.team1305.robot2014.commands.autonomous;
 
 import org.team1305.robot2014.commands.CommandBase;
 
@@ -11,12 +11,12 @@ import org.team1305.robot2014.commands.CommandBase;
  *
  * @author Root 1
  */
-public class CatapultStop extends CommandBase {
+public class AutonomousMobility extends CommandBase {
     
-    public CatapultStop() {
+    public AutonomousMobility() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(catapult);
+        requires(chassis);
     }
 
     // Called just before this Command runs the first time
@@ -25,11 +25,17 @@ public class CatapultStop extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        catapult.Stop();
+        System.out.println("InAutoMobility");
+        chassis.mobilityMovement();
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+        if (chassis.mobilityMovement()){
+            return true;
+            
+        }  
         return false;
     }
 

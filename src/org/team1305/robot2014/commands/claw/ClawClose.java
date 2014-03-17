@@ -3,47 +3,55 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team1305.robot2014.commands.catapult;
+package org.team1305.robot2014.commands.claw;
 
+import edu.wpi.first.wpilibj.Timer;
 import org.team1305.robot2014.commands.CommandBase;
 
 /**
- *CURRENTLY UNUSED
+ *
  * @author Root 1
  */
-public class CatapultFire extends CommandBase {
+public class ClawClose extends CommandBase {
     
-    boolean engaged;
+    private Timer timeout = new Timer();
+    private final double timeoutEnd = 1;
     
-    public CatapultFire() {
+    public ClawClose() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(catapult);
+        requires(claw);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        timeout.start();
+        claw.getPot();
+        claw.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        System.out.println("In CatapultFire");
-        //if (oi.RTrigAndBumpPressed() & claw.ClawsAreClearToFire())
-       // if (claw.ClawsAwayFromCatapult())
-            catapult.PullFiringPin(engaged);
+        claw.close();
+        claw.getPot();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        if (timeout.get()>=timeoutEnd){
+            return true;
+        }
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+        claw.clawstop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        claw.clawstop();
     }
 }

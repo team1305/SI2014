@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team1305.robot2014.commands.claw;
+package org.team1305.robot2014.commands.passer;
 
 import org.team1305.robot2014.commands.CommandBase;
 
@@ -11,11 +11,11 @@ import org.team1305.robot2014.commands.CommandBase;
  *
  * @author Root 1
  */
-public class Close extends CommandBase {
+public class PassEnable extends CommandBase {
     
-    public Close() {
+    public PassEnable() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        requires(passer);
     }
 
     // Called just before this Command runs the first time
@@ -24,6 +24,7 @@ public class Close extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        passer.enable();
     }
 
     // Make this return true when this Command no longer needs to run execute()
