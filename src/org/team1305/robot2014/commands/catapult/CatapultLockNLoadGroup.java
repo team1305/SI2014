@@ -15,7 +15,7 @@ import org.team1305.robot2014.commands.claw.ClawOpen;
 public class CatapultLockNLoadGroup extends CommandGroup {
     
     public CatapultLockNLoadGroup() {
-        addSequential(new ClawOpen());
+        //addSequential(new ClawOpen());
         addSequential(new CatapultLockNLoad());
     }
 }

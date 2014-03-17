@@ -23,6 +23,8 @@ import org.team1305.robot2014.commands.claw.ClawOpen;
 import org.team1305.robot2014.commands.claw.ClawPark;
 import org.team1305.robot2014.commands.claw.ClawRight;
 import org.team1305.robot2014.commands.claw.ClawRightReverse;
+import org.team1305.robot2014.commands.passer.PassDisable;
+import org.team1305.robot2014.commands.passer.PassEnable;
 
 /**
  * Controls all operator input into the robot.
@@ -96,6 +98,8 @@ public class OI {
         driveLClick.whenPressed(new ToggleGear());
         driveB.whenPressed(new ClawPark());
         
+        shootLBump.whenPressed(new PassEnable());
+        shootRBump.whenPressed(new PassDisable());
         shootA.whenPressed(new CatapultFireGroup());
         shootY.whenPressed(new CatapultLockNLoadGroup());
         

@@ -103,7 +103,7 @@ public class Camera extends Subsystem {
         camera.writeBrightness(CAMERA_BRIGHTNESS);
 //        int verticalTargets[] = new int[MAX_PARTICLES];
 //	int horizontalTargets[] = new int[MAX_PARTICLES];
-//	int verticalTargetCount, horizontalTargetCount;
+//	int verticalTargetCount, horizontal TargetCount;
         
       }
     
@@ -151,17 +151,18 @@ public class Camera extends Subsystem {
               final int LUMINANCE_MIN = 148;
               final int LUMINANCE_MAX = 255;
 */
-              final int HUE_MIN = 29;    
-              final int HUE_MAX = 198;
-              final int SATURATION_MIN = 0;
+              final int HUE_MIN = 30;    
+              final int HUE_MAX = 130;
+              final int SATURATION_MIN = 10;
               final int SATURATION_MAX = 255;
-              final int LUMINANCE_MIN = 138;
+              final int LUMINANCE_MIN = 135;
               final int LUMINANCE_MAX = 255;
               //************************
               BinaryImage thresholdImage = image.thresholdHSL(HUE_MIN, HUE_MAX, SATURATION_MIN, SATURATION_MAX, LUMINANCE_MIN, LUMINANCE_MAX);
             
               //BinaryImage thresholdImage = image.thresholdHSV(105, 137, 230, 255, 133, 183);   // keep only green objects
               //thresholdImage.write("/threshold.bmp");
+              thresholdImage = thresholdImage.convexHull(false);
               BinaryImage filteredImage = thresholdImage.particleFilter(cc);           // filter out small particles
               //filteredImage.write("/filteredImage.bmp");
               System.out.println("--- after particle Filter ---");
@@ -256,8 +257,14 @@ public class Camera extends Subsystem {
                                          SmartDashboard.putString(SMARTDASH_HOT_TARGET_RESULT, "Hot target located");
                                          SmartDashboard.putNumber("Hot Count", hotTargetFinds);
                                          SmartDashboard.putNumber("Total Count", hotTargetChecks);
-                                         System.out.println("Distance: " + distance);
+                                         SmartDashboard.putNumber("Distance", distance);
                                          this.SetIndicatorLights(true, false, false);
+                                         if(distance <= 15 && distance >= 20){
+                                             SmartDashboard.putString("In Firing Range", "FIRE");
+                                         }
+                                         else{
+                                             SmartDashboard.putString("In Firing Range", "OUT");
+                                         }
                                  } else {
                                          hotTargetChecks = hotTargetChecks+1;
                                          System.out.println("No hot target present");
@@ -266,6 +273,12 @@ public class Camera extends Subsystem {
                                          SmartDashboard.putNumber("Total Count", hotTargetChecks);
                                          System.out.println("Distance: " + distance);
                                          this.SetIndicatorLights(false, false, true);
+                                         if(distance <= 15 && distance >= 20){
+                                             SmartDashboard.putString("In Firing Range", "FIRE");
+                                         }
+                                         else{
+                                             SmartDashboard.putString("In Firing Range", "OUT");
+                                         }
                                  }
                          }
                 }
@@ -353,9 +366,8 @@ public class Camera extends Subsystem {
             height = Math.min(report.boundingRectHeight, rectLong);
             targetHeight = 32;
 
-            return Y_IMAGE_RES * targetHeight / (height * 12 * 2 * Math.tan(VIEW_ANGLE*Math.PI/(180*2)));
+            return 1/1.26*Y_IMAGE_RES * targetHeight / (height * 12 * 2 * Math.tan(VIEW_ANGLE*Math.PI/(180*2)));
   }
-    
     /**
      * Computes a score (0-100) comparing the aspect ratio to the ideal aspect ratio for the target. This method uses
      * the equivalent rectangle sides to determine aspect ratio as it performs better as the target gets skewed by moving

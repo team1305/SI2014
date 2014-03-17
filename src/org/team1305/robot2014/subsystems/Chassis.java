@@ -239,7 +239,7 @@ public class Chassis extends Subsystem {
                     
                     currentState++;
                 }
-                robotDrive.mecanumDrive_Cartesian(1, 0, 0, 90);
+                robotDrive.mecanumDrive_Cartesian(-1, 0, 0, 90);
                 break;
             case 2:
                 robotDrive.mecanumDrive_Cartesian(0, 0, 0, 90);

@@ -40,12 +40,12 @@ public class Claw extends Subsystem {
     private final double POTVALUE_LEFT_PARK = 0;
     private final double POTVALUE_LEFT_OPEN = 2.5;
     private final double POTVALUE_LEFT_OK_TO_FIRE = 2.9;
-    private final double POTVALUE_LEFT_CLOSED = 3.6;
+    private final double POTVALUE_LEFT_CLOSED = 3.45;
     
     private final double POTVALUE_RIGHT_PARK = 5;
     private final double POTVALUE_RIGHT_OPEN = 2;
     private final double POTVALUE_RIGHT_OK_TO_FIRE = 1.6;    
-    private final double POTVALUE_RIGHT_CLOSED = 1.0;
+    private final double POTVALUE_RIGHT_CLOSED = 1.3;
     
 
     //the sensor and motor objects. 

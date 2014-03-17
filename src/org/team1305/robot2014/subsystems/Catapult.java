@@ -75,6 +75,14 @@ public class Catapult extends Subsystem {
         }
     }
     
+    public void AutoFire(){
+        //Overrides safety mechanisms in autonomous to fire catapult.
+        sGearSolenoid.set(false);
+        sLatchSolenoid.set(true);
+        fireLock = true;
+        isLoaded = false;
+    }
+    
     public boolean GetBottomLimitSWState()
     {
          return dBottomLimit.get();
