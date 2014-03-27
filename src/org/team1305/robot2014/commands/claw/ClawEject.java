@@ -9,23 +9,22 @@ import org.team1305.robot2014.commands.CommandBase;
 
 /**
  *
- * @author Kim
+ * @author Root 1
  */
-public class ClawRight extends CommandBase {
+public class ClawEject extends CommandBase {
     
-    public ClawRight() {
+    public ClawEject() {
         // Use requires() here to declare subsystem dependencies
         requires(claw);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        claw.eject();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        claw.clawRight();
-        claw.getPot();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,5 +39,6 @@ public class ClawRight extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        claw.stop();
     }
 }

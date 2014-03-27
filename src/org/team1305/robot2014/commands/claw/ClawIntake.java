@@ -9,11 +9,11 @@ import org.team1305.robot2014.commands.CommandBase;
 
 /**
  *
- * @author Kim
+ * @author Root 1
  */
-public class ClawLeft extends CommandBase {
+public class ClawIntake extends CommandBase {
     
-    public ClawLeft() {
+    public ClawIntake() {
         // Use requires() here to declare subsystem dependencies
         requires(claw);
     }
@@ -24,8 +24,6 @@ public class ClawLeft extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        claw.clawLeft();
-        claw.getPot();
     }
 
     // Make this return true when this Command no longer needs to run execute()

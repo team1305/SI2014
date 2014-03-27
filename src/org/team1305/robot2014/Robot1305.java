@@ -15,10 +15,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.team1305.robot2014.commands.autonomous.AutonomousCommand;
 import org.team1305.robot2014.commands.CommandBase;
 import org.team1305.robot2014.commands.autonomous.AutonomousMasterGroup;
-import org.team1305.robot2014.commands.autonomous.AutoNoStrafe;
 import org.team1305.robot2014.commands.autonomous.AutoStrafeLeft;
 import org.team1305.robot2014.commands.autonomous.AutoStrafeRight;
 
@@ -43,20 +41,11 @@ public class Robot1305 extends IterativeRobot {
         // Initialize all subsystems
         CommandBase.init();
         SmartDashboard.putData(Scheduler.getInstance());
-        autoChooser = new SendableChooser();
-        System.out.println("about to addDefault");
-        autoChooser.addDefault("Default AutoMasterGroup", new AutonomousMasterGroup());
-        //autoChooser.addDefault("Default Auto NoStrafe", new AutoNoStrafe());
-        autoChooser.addObject("Strafe Left", new AutoStrafeLeft());
-        autoChooser.addObject("Strafe Right", new AutoStrafeRight());
-        SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
         
     }
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        autonomousCommand = (Command) autoChooser.getSelected();
-        SmartDashboard.putData("Autonomous Command", autonomousCommand);
         autonomousCommand.start();
     }
 

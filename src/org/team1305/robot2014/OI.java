@@ -3,28 +3,16 @@ package org.team1305.robot2014;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.team1305.robot2014.commands.camera.CameraActive;
-import org.team1305.robot2014.commands.catapult.CatapultFire;
 import org.team1305.robot2014.commands.catapult.CatapultFireGroup;
 import org.team1305.robot2014.commands.catapult.CatapultLock;
-import org.team1305.robot2014.commands.catapult.CatapultLockNLoad;
 import org.team1305.robot2014.commands.catapult.CatapultLockNLoadGroup;
-import org.team1305.robot2014.commands.catapult.CatapultStop;
 import org.team1305.robot2014.commands.catapult.CatapultUnlock;
 import org.team1305.robot2014.commands.chassis.ToggleGear;
 import org.team1305.robot2014.commands.chassis.ToggleSmoothing;
 import org.team1305.robot2014.commands.claw.ClawClose;
-import org.team1305.robot2014.commands.claw.ClawLeft;
-import org.team1305.robot2014.commands.claw.ClawLeftReverse;
 import org.team1305.robot2014.commands.claw.ClawOpen;
-import org.team1305.robot2014.commands.claw.ClawPark;
-import org.team1305.robot2014.commands.claw.ClawRight;
-import org.team1305.robot2014.commands.claw.ClawRightReverse;
-import org.team1305.robot2014.commands.passer.PassDisable;
-import org.team1305.robot2014.commands.passer.PassEnable;
 
 /**
  * Controls all operator input into the robot.
@@ -87,8 +75,7 @@ public class OI {
     
     
     public OI(){
-        driveStart.whenPressed(new ToggleSmoothing());
-        driveAnalyze.whenPressed(new CameraActive());
+        driveStart.whenPressed(new ToggleSmoothing());  
         //driveLTrigger.whenPressed(new CatapultStop());
         
         shootX.whenPressed(new CatapultUnlock());
@@ -96,10 +83,7 @@ public class OI {
         driveLBump.whenPressed(new ClawOpen());
         driveRBump.whenPressed(new ClawClose());
         driveLClick.whenPressed(new ToggleGear());
-        driveB.whenPressed(new ClawPark());
         
-        shootLBump.whenPressed(new PassEnable());
-        shootRBump.whenPressed(new PassDisable());
         shootA.whenPressed(new CatapultFireGroup());
         shootY.whenPressed(new CatapultLockNLoadGroup());
         

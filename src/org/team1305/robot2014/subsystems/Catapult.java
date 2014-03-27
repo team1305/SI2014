@@ -5,7 +5,6 @@
  */
 package org.team1305.robot2014.subsystems;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
@@ -20,15 +19,12 @@ import org.team1305.robot2014.RobotMap;
 
 public class Catapult extends Subsystem {
     //Winch motors.
-    private final Talon mLeftPullback = new Talon (RobotMap.PWM_PULLBACK_LEFT);
     private final Talon mRightPullback = new Talon (RobotMap.PWM_PULLBACK_RIGHT);
     
     //Solenoids for controlling the shooting mechanism actions.
-    private final Solenoid sGearSolenoid = new Solenoid (RobotMap.SOL_GEAR);
     private final Solenoid sLatchSolenoid = new Solenoid (RobotMap.SOL_LATCH);
     
     //Potentiometer located on the winch motors.
-    private final AnalogPotentiometer aPullbackPot = new AnalogPotentiometer (RobotMap.AN_PULLBACK_POT);
     
     //Limit switch for detecting if the shooter is done loading.
     private final DigitalInput dBottomLimit = new DigitalInput (RobotMap.DIO_LIMIT_CAT_BOTTOM);
@@ -65,7 +61,6 @@ public class Catapult extends Subsystem {
     public void PullFiringPin(boolean engaged){
         if (fireLock == false){
             //Stops all actions, fireLock must be false.
-            sGearSolenoid.set(false);
             sLatchSolenoid.set(true);
             fireLock = true;
             isLoaded = false;
@@ -77,7 +72,6 @@ public class Catapult extends Subsystem {
     
     public void AutoFire(){
         //Overrides safety mechanisms in autonomous to fire catapult.
-        sGearSolenoid.set(false);
         sLatchSolenoid.set(true);
         fireLock = true;
         isLoaded = false;
@@ -89,28 +83,16 @@ public class Catapult extends Subsystem {
     }
     
     /**
-     * Moves gears to allow loading of catapult.
-     * @param engaged Gears in position to load.
-     */
-    public void SetTransmissionEngaged(boolean engaged){
-        sGearSolenoid.set(engaged);
-        
-    }
-    
-    /**
      * Loads catapult until the bottomLimit is reached.
      * @return Returns true if motor is still running, false if limit is hit, to LockNLoad.
      */
     public boolean WinchAtLimit(){
         if (dBottomLimit.get() == false && isLoaded == false){
-            mLeftPullback.set(1);
             mRightPullback.set(1);
             sLatchSolenoid.set(false);
             return false;
         }else{
-            mLeftPullback.set(0);
             mRightPullback.set(0);
-            sGearSolenoid.set(true);
             isLoaded = true;
             return true;
         }
@@ -118,7 +100,6 @@ public class Catapult extends Subsystem {
     }
     
     public void Reverse(int speed){
-        mLeftPullback.set(speed);
         mRightPullback.set(speed);
     }
     
@@ -142,7 +123,6 @@ public class Catapult extends Subsystem {
      * Stops all motion in the catapult loading process.
      */
     public void Stop(){
-        mLeftPullback.set(0);
         mRightPullback.set(0);
     }
     

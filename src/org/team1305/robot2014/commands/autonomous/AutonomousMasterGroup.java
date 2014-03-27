@@ -5,16 +5,10 @@
  */
 package org.team1305.robot2014.commands.autonomous;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.team1305.robot2014.commands.camera.CameraActive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.team1305.robot2014.commands.catapult.CatapultFire;
 import org.team1305.robot2014.commands.catapult.CatapultLockNLoad;
 import org.team1305.robot2014.commands.claw.ClawClose;
-import org.team1305.robot2014.commands.claw.ClawOpen;
-import org.team1305.robot2014.commands.claw.ClawPark;
 
 /**
  *
@@ -24,27 +18,7 @@ public class AutonomousMasterGroup extends CommandGroup {
     double hotCount;
     
     public AutonomousMasterGroup() {
-        //Changes the autonomous if the robot is in the middle of the field.
-        if (DriverStation.getInstance().getLocation() == 2){
-        addParallel(new CatapultLockNLoad());
-        addSequential(new AutonomousRotate());
-        addSequential(new CameraActive());
-            if (hotCount >= 2){
-                 // System.out.println("Detected high amount of Hot Goals");
-                SmartDashboard.putString("HEY THIS WORKS", "BOO");
-                addSequential(new AutonomousFire());
-                addSequential(new AutonomousMobility());
-            }
-            else{
-                //System.out.println("No hot goal");
-                SmartDashboard.putString("HEY THIS WORKS", "HEY");
-                addSequential(new AutonomousMobility());
-                addSequential(new AutonomousFire());
-            }
-        
-        }
         //Triggered if goal is directly in front of the robot.
-        else{
           //Starts analyzing the target, while opening the claw and loading the catapult.
           //addParallel(new CameraActive());
           //addParallel(new ClawOpen());
@@ -60,7 +34,6 @@ public class AutonomousMasterGroup extends CommandGroup {
           SmartDashboard.putString("AUTO STATE", "Reading camera stuff");
           hotCount = SmartDashboard.getNumber("Hot Count");
           SmartDashboard.putNumber("What I read", hotCount);
-          addSequential(new ClawPark());
           //NOT NEEDED
         if (hotCount >= 2){
            // System.out.println("Detected high amount of Hot Goals");
@@ -90,4 +63,4 @@ public class AutonomousMasterGroup extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     }
-}
+
