@@ -63,8 +63,12 @@ public class Chassis extends Subsystem {
     }
     
     public void arcadeDrive(double move, double steer) {
-        
+        if(lowGear == false){
         robotDrive.arcadeDrive(move, steer, true);
+        }
+        else{
+            robotDrive.arcadeDrive((move/2), (steer/1.3), true);
+        }
         
     }    
     

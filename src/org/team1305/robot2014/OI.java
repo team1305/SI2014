@@ -11,6 +11,8 @@ import org.team1305.robot2014.commands.catapult.CatapultLockNLoadGroup;
 import org.team1305.robot2014.commands.catapult.CatapultUnlock;
 import org.team1305.robot2014.commands.chassis.ToggleGear;
 import org.team1305.robot2014.commands.claw.ClawClose;
+import org.team1305.robot2014.commands.claw.ClawEject;
+import org.team1305.robot2014.commands.claw.ClawIntake;
 import org.team1305.robot2014.commands.claw.ClawOpen;
 
 /**
@@ -74,12 +76,14 @@ public class OI {
     
     
     public OI(){
-        shootX.whenPressed(new CatapultUnlock());
-        shootB.whenPressed(new CatapultLock());
+        
         driveLBump.whenPressed(new ClawOpen());
         driveRBump.whenPressed(new ClawClose());
         driveLClick.whenPressed(new ToggleGear());
-        
+        driveX.whenPressed(new ClawIntake());
+        driveB.whenPressed(new ClawEject());
+        shootX.whenPressed(new CatapultUnlock());
+        shootB.whenPressed(new CatapultLock());
         shootA.whenPressed(new CatapultFireGroup());
         shootY.whenPressed(new CatapultLockNLoadGroup());
     }

@@ -20,20 +20,17 @@ public class AutonomousMasterGroup extends CommandGroup {
     
     public AutonomousMasterGroup() {
           SmartDashboard.putString("AUTO STATE", "Locking and Loading");
-          addSequential(new CatapultLockNLoad());
+          //addSequential(new CatapultLockNLoad());
           SmartDashboard.putString("AUTO STATE", "Closing claws");
           //Closes claws to clamp ball and prevent it falling off.
-          addSequential(new ClawClose());
+          //addSequential(new ClawClose());
           SmartDashboard.putString("AUTO STATE", "Moving");
           //Moves 
           addSequential(new AutonomousMobility());
-          SmartDashboard.putNumber("What I read", hotCount);
           SmartDashboard.putString("AUTO STATE", "Reading camera stuff");
-          hotCount = SmartDashboard.getNumber("Hot Count");
-          SmartDashboard.putNumber("What I read", hotCount);
           //NOT NEEDED
-          addSequential(new ClawOpen());
-          addSequential(new AutonomousFire());
+          //addSequential(new ClawOpen());
+          //addSequential(new AutonomousFire());
         
         }
     }

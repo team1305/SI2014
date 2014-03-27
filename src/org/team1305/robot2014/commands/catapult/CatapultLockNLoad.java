@@ -19,7 +19,7 @@ public class CatapultLockNLoad extends CommandBase {
     private Timer delayTimer = new Timer();
     private Timer reverseTimer = new Timer();
     private static final double DELAY_BEFORE_TIMER = 0.5;
-    private static final double DELAY_DURING_REVERSE = 2.75;
+    private static final double DELAY_DURING_REVERSE = 1;
     private boolean isDone = false;
     public boolean shooterLoaded = false;
     //boolean hadToWind = false;

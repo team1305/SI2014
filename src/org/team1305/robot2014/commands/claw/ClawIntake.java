@@ -20,6 +20,7 @@ public class ClawIntake extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        claw.intake();
     }
 
     // Called repeatedly when this Command is scheduled to run
