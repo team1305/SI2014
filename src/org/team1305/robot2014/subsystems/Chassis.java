@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.RobotMap;
-import org.team1305.robot2014.commands.chassis.MecanumDrive;
+import org.team1305.robot2014.commands.chassis.ArcadeDrive;
 
 /**
  *Chassis is the culmination of all the driving stuffs in the robot.  
@@ -23,15 +23,11 @@ import org.team1305.robot2014.commands.chassis.MecanumDrive;
 public class Chassis extends Subsystem {
     //Driving links, such as smoothing and connecting Talons.
     //********************************************************//
-    private boolean isSmoothing = true;
     private final Talon tLeftFront = new Talon(RobotMap.PWM_DRIVE_LEFT_FRONT);
     private final Talon tLeftBack = new Talon(RobotMap.PWM_DRIVE_LEFT_BACK);
     private final Talon tRightFront = new Talon(RobotMap.PWM_DRIVE_RIGHT_FRONT);
     private final Talon tRightBack = new Talon(RobotMap.PWM_DRIVE_RIGHT_BACK);
     private final RobotDrive robotDrive = new RobotDrive(tLeftFront, tLeftBack, tRightFront, tRightBack);
-    //********************************************************//
-    
-    //PID variables, should not be touched.
     //********************************************************//
     
     
@@ -54,13 +50,8 @@ public class Chassis extends Subsystem {
      * This is the chassis constructor.
      */
     public Chassis() {
-       
         robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
         robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
-        
-        SmartDashboard.putBoolean("SmoothingStatus", isSmoothing);
-        
-        
     }
     
     /**
@@ -68,10 +59,9 @@ public class Chassis extends Subsystem {
      */
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new MecanumDrive());
+        setDefaultCommand(new ArcadeDrive());
     }
     
- 
     public void arcadeDrive(double move, double steer) {
         
         robotDrive.arcadeDrive(move, steer, true);
@@ -100,9 +90,7 @@ public class Chassis extends Subsystem {
                 isDone = true;
                 return true;
         }
-        
         return false;
-        
     }
     
     /**
@@ -127,7 +115,6 @@ public class Chassis extends Subsystem {
                 return true;
         }
         return false;
-        
     }
     
     /**
@@ -139,13 +126,11 @@ public class Chassis extends Subsystem {
         switch (currentState){
             case 0:
                 mobilityTimer.start();
-                
                 currentState++;
                 break;
             case 1:
                 if (mobilityTimer.get()>=DELAY_BEFORE_MOBILITY_TIMER)
                 {
-                    
                     currentState++;
                 }
                 robotDrive.mecanumDrive_Cartesian(-1, 0, 0, 90);

@@ -51,8 +51,8 @@ public class CatapultLockNLoad extends CommandBase {
                 //Starts delayTimer, engages transmission.
                 isDone = false;
                 delayTimer.start();
-                catapult.SetTransmissionEngaged(true);
                 SmartDashboard.putString("Winch", "Engaging");
+                catapult.set(1);
                 currentState++;
                 break;
             case 1:
@@ -60,23 +60,22 @@ public class CatapultLockNLoad extends CommandBase {
                 {
                     //enables winch if it isn't already loaded.
                     catapult.WinchAtLimit();
+                    delayTimer.stop();
                     currentState++;
                 }
                 break;
             case 2:
-                //ksif (hadToWind == false)
-                //ks        currentState++;
-                //kselse 
                 if (catapult.WinchAtLimit()==true){
                     SmartDashboard.putString("Winch", "Should be raising");
                     reverseTimer.start();
-                    catapult.Reverse(-1);
+                    catapult.set(-1);
                     currentState++;
                 }
                 break;
             case 3:
                 if (reverseTimer.get()>=DELAY_DURING_REVERSE){
-                    catapult.Reverse(0);
+                    catapult.set(0);
+                    reverseTimer.stop();
                     currentState++;
                 }
                 break;
@@ -86,7 +85,7 @@ public class CatapultLockNLoad extends CommandBase {
                 break;
         }
     }
-
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         if(isDone == true){
@@ -99,7 +98,6 @@ public class CatapultLockNLoad extends CommandBase {
            SmartDashboard.putString("Winch", "Exiting Group");
            return true; 
         }
-       
         return false;
     }
 

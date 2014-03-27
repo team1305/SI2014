@@ -24,8 +24,6 @@ public class Catapult extends Subsystem {
     //Solenoids for controlling the shooting mechanism actions.
     private final Solenoid sLatchSolenoid = new Solenoid (RobotMap.SOL_LATCH);
     
-    //Potentiometer located on the winch motors.
-    
     //Limit switch for detecting if the shooter is done loading.
     private final DigitalInput dBottomLimit = new DigitalInput (RobotMap.DIO_LIMIT_CAT_BOTTOM);
     
@@ -99,7 +97,7 @@ public class Catapult extends Subsystem {
         
     }
     
-    public void Reverse(int speed){
+    public void set(int speed){
         mRightPullback.set(speed);
     }
     

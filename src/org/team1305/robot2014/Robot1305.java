@@ -17,8 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.commands.CommandBase;
 import org.team1305.robot2014.commands.autonomous.AutonomousMasterGroup;
-import org.team1305.robot2014.commands.autonomous.AutoStrafeLeft;
-import org.team1305.robot2014.commands.autonomous.AutoStrafeRight;
 
 /**
  * The VM is configured to automatically run this class, and to call the

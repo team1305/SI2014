@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team1305.robot2014.commands.catapult.CatapultLockNLoad;
 import org.team1305.robot2014.commands.claw.ClawClose;
+import org.team1305.robot2014.commands.claw.ClawOpen;
 
 /**
  *
@@ -18,10 +19,6 @@ public class AutonomousMasterGroup extends CommandGroup {
     double hotCount;
     
     public AutonomousMasterGroup() {
-        //Triggered if goal is directly in front of the robot.
-          //Starts analyzing the target, while opening the claw and loading the catapult.
-          //addParallel(new CameraActive());
-          //addParallel(new ClawOpen());
           SmartDashboard.putString("AUTO STATE", "Locking and Loading");
           addSequential(new CatapultLockNLoad());
           SmartDashboard.putString("AUTO STATE", "Closing claws");
@@ -35,32 +32,9 @@ public class AutonomousMasterGroup extends CommandGroup {
           hotCount = SmartDashboard.getNumber("Hot Count");
           SmartDashboard.putNumber("What I read", hotCount);
           //NOT NEEDED
-        if (hotCount >= 2){
-           // System.out.println("Detected high amount of Hot Goals");
-            SmartDashboard.putString("HEY THIS WORKS", "BOO");
-            addSequential(new AutonomousFire());
-            
+          addSequential(new ClawOpen());
+          addSequential(new AutonomousFire());
+        
         }
-        else{
-            //System.out.println("No hot goal");
-            SmartDashboard.putString("HEY THIS WORKS", "HEY");
-            addSequential(new AutonomousFire());
-        }
-        }
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
     }
 

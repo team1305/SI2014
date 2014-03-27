@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.team1305.robot2014.commands.autonomous;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.team1305.robot2014.RobotMap;
+package org.team1305.robot2014.commands.chassis;
+
 import org.team1305.robot2014.commands.CommandBase;
 
 /**
  *
- * @author Kim
+ * @author Root 1
  */
-public class AutoStrafeLeft extends CommandBase {
+public class ArcadeDrive extends CommandBase {
     
-    public AutoStrafeLeft() {
+    public ArcadeDrive() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        requires(chassis);
     }
 
     // Called just before this Command runs the first time
@@ -25,7 +24,7 @@ public class AutoStrafeLeft extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        SmartDashboard.putString(RobotMap.SMARTDASH_MY_AUTO, "AutoStrafeLeft");
+        chassis.arcadeDrive(oi.getDriveYL(), oi.getDriveXL());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,5 +39,6 @@ public class AutoStrafeLeft extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        chassis.stopPlz();
     }
 }

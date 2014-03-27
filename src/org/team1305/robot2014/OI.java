@@ -10,7 +10,6 @@ import org.team1305.robot2014.commands.catapult.CatapultLock;
 import org.team1305.robot2014.commands.catapult.CatapultLockNLoadGroup;
 import org.team1305.robot2014.commands.catapult.CatapultUnlock;
 import org.team1305.robot2014.commands.chassis.ToggleGear;
-import org.team1305.robot2014.commands.chassis.ToggleSmoothing;
 import org.team1305.robot2014.commands.claw.ClawClose;
 import org.team1305.robot2014.commands.claw.ClawOpen;
 
@@ -75,9 +74,6 @@ public class OI {
     
     
     public OI(){
-        driveStart.whenPressed(new ToggleSmoothing());  
-        //driveLTrigger.whenPressed(new CatapultStop());
-        
         shootX.whenPressed(new CatapultUnlock());
         shootB.whenPressed(new CatapultLock());
         driveLBump.whenPressed(new ClawOpen());
@@ -86,12 +82,8 @@ public class OI {
         
         shootA.whenPressed(new CatapultFireGroup());
         shootY.whenPressed(new CatapultLockNLoadGroup());
-        
-//        shootLBump.whileHeld(new ClawOpen());
-//        shootRBump.whileHeld(new ClawClose());
-//        shootRTrigger.whileHeld(new ClawLeftReverse());
-//        shootLTrigger.whileHeld(new ClawRightReverse());
     }
+    
     public double getDriveXL(){     
         SmartDashboard.putNumber("XL", driveStick.getRawAxis(AXIS_XL));
         return driveStick.getRawAxis(AXIS_XL);
@@ -110,14 +102,9 @@ public class OI {
     }
     public double getDriveTRIG(){
         //This is no longer used
-       SmartDashboard.putNumber("TRIG", shootStick.getRawAxis(AXIS_TRIG));
+        SmartDashboard.putNumber("TRIG", shootStick.getRawAxis(AXIS_TRIG));
 
         return driveStick.getRawAxis(AXIS_TRIG);
     }    
     
-//    public boolean RTrigAndBumpPressed(){
-//        return shootRTrigger.get() == true & shootRBump.get() == true;
-//    }
-
 }
-
