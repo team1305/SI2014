@@ -29,7 +29,7 @@ public class Catapult extends Subsystem {
     
     //Locks firing.
     private boolean fireLock;
-    private boolean isLoaded = false;
+    public boolean isLoaded = false;
 
     /**
      * Locks firing.
@@ -66,6 +66,9 @@ public class Catapult extends Subsystem {
             sLatchSolenoid.set(false);
             
         }
+    }
+    public void unpullFiringPin(){
+        sLatchSolenoid.set(false);
     }
     
     public void AutoFire(){

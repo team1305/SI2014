@@ -34,8 +34,9 @@ public class Claw extends Subsystem {
     //the pid controllers which actually control the arm motion
     //an integer representing the current state of the claw subsystem
     
-    private final Solenoid solClaw = new Solenoid(RobotMap.SOL_CLAW);
+    public final Solenoid solClaw = new Solenoid(RobotMap.SOL_CLAW);
     
+    public int clawState;
     
     public Claw(){
     }
@@ -54,6 +55,7 @@ public class Claw extends Subsystem {
      */
     public void open(){
         solClaw.set(false);
+        clawState = 1;
     }
     
     /**
@@ -65,6 +67,7 @@ public class Claw extends Subsystem {
      */
     public void close(){
         solClaw.set(true);
+        clawState = 0;
     }
     /**
      * Stops the claw movement.
