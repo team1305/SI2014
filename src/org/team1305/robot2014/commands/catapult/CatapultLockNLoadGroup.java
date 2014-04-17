@@ -6,6 +6,7 @@
 package org.team1305.robot2014.commands.catapult;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.team1305.robot2014.commands.claw.ClawClose;
 import org.team1305.robot2014.commands.claw.ClawOpen;
 
 /**
@@ -15,7 +16,7 @@ import org.team1305.robot2014.commands.claw.ClawOpen;
 public class CatapultLockNLoadGroup extends CommandGroup {
     
     public CatapultLockNLoadGroup() {
-        //addSequential(new ClawOpen());
+        addSequential(new ClawClose());
         addSequential(new CatapultLockNLoad());
     }
 }

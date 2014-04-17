@@ -55,6 +55,8 @@ public class Claw extends Subsystem {
      */
     public void open(){
         solClaw.set(false);
+        mLeft.set(0);
+        mRight.set(0);
         clawState = 1;
     }
     
@@ -67,6 +69,8 @@ public class Claw extends Subsystem {
      */
     public void close(){
         solClaw.set(true);
+        mLeft.set(0);
+        mRight.set(0);
         clawState = 0;
     }
     /**

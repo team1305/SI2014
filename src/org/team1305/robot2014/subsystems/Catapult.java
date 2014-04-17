@@ -73,9 +73,10 @@ public class Catapult extends Subsystem {
     
     public void AutoFire(){
         //Overrides safety mechanisms in autonomous to fire catapult.
+        SmartDashboard.putString("AUTO STATE", "AutoFiring");
         sLatchSolenoid.set(true);
-        fireLock = true;
         isLoaded = false;
+        System.out.println("**Fired in Autonomous");
     }
     
     public boolean GetBottomLimitSWState()
@@ -124,6 +125,13 @@ public class Catapult extends Subsystem {
      * Stops all motion in the catapult loading process.
      */
     public void Stop(){
+        mRightPullback.set(0);
+    }
+    
+    public void MasterReset() {
+        fireLock = true;
+        isLoaded = false;
+        sLatchSolenoid.set(true);
         mRightPullback.set(0);
     }
     

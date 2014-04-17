@@ -18,8 +18,8 @@ public class CatapultLockNLoad extends CommandBase {
     private int currentState; // = 0;
     private Timer delayTimer = new Timer();
     private Timer reverseTimer = new Timer();
-    private static final double DELAY_BEFORE_TIMER = 0.5;
-    private static final double DELAY_DURING_REVERSE = 1.0;
+    private static final double DELAY_BEFORE_TIMER = 0.50;
+    private static final double DELAY_DURING_REVERSE = 0.00;
     private boolean isDone = false;
     public boolean shooterLoaded = false;
     //boolean hadToWind = false;
@@ -27,7 +27,7 @@ public class CatapultLockNLoad extends CommandBase {
     public CatapultLockNLoad() {
         // Use requires() here to declare subsystem dependencies
         requires(catapult);
-        setInterruptible(false);
+        //setInterruptible(false);
     }
 
     // Called just before this Command runs the first time

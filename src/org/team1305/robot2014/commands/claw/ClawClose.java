@@ -14,6 +14,9 @@ import org.team1305.robot2014.commands.CommandBase;
  */
 public class ClawClose extends CommandBase {
     
+    private Timer delayTimer = new Timer();
+    private static final double DELAY_BEFORE_TIMER = 0.5;
+
     public ClawClose() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -22,6 +25,7 @@ public class ClawClose extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        delayTimer.start();
         claw.close();
     }
 
@@ -31,7 +35,7 @@ public class ClawClose extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return delayTimer.get() >= DELAY_BEFORE_TIMER;
     }
 
     // Called once after isFinished returns true

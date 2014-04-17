@@ -36,7 +36,7 @@ public class Chassis extends Subsystem {
     //********************************************************//
     private final Timer mobilityTimer = new Timer();
     private final Timer rotateTimer = new Timer();
-    private static final double DELAY_BEFORE_MOBILITY_TIMER = 1;
+    private static final double DELAY_BEFORE_MOBILITY_TIMER = 1.50;
 //    private static final double DELAY_AFTER_MOBILITY_TIMER = 1;
     private static final double DELAY_BEFORE_ROTATE_TIMER = 0.5;
     private static final double DELAY_AFTER_ROTATE_TIMER = 0.5;
@@ -129,19 +129,22 @@ public class Chassis extends Subsystem {
     public boolean mobilityMovement(){
         switch (currentState){
             case 0:
+                mobilityTimer.reset();
                 mobilityTimer.start();
                 currentState++;
                 break;
             case 1:
                 if (mobilityTimer.get()>=DELAY_BEFORE_MOBILITY_TIMER)
                 {
+                    mobilityTimer.stop();
                     currentState++;
                 }
-                robotDrive.mecanumDrive_Cartesian(-1, 0, 0, 90);
+                robotDrive.mecanumDrive_Cartesian(0.6, 0, 0, 90);
                 break;
             case 2:
                 robotDrive.mecanumDrive_Cartesian(0, 0, 0, 90);
                 isDone = true;
+                currentState = 0;
                 return true; 
         }
         return false;
